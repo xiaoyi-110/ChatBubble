@@ -1,35 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameFramework.Fsm;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerIdleState(string animBoolName) : base(animBoolName)
     {
     }
 
-    public override void Enter()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Enter();
-    }
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
 
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void Update()
-    {
-        base.Update(); 
-
-        if(isFinished)return;
-        if(Math.Abs(inputHorizontal) > 0.1f)
+        if(m_IsChanged)return;
+        if(Math.Abs(m_InputHorizontal) > 0.1f)
         {
-            player.stateMachine.ChangeState(typeof(PlayerMoveState));
+            ChangeState<PlayerMoveState>(fsm);
         }
-        
-        
     }
+
 }

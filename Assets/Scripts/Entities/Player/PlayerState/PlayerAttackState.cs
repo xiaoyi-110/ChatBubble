@@ -1,48 +1,51 @@
 
+using GameFramework.Fsm;
 using Mono.CompilerServices.SymbolWriter;
 using UnityEngine;
 
 public class PlayerAttackState : PlayerState
 {
-    private int comboCounter;
-    private float comboTimeWindow;
-    private float lastAttackTime;
+    private int m_ComboCounter;
+    private float m_ComboTimeWindow;
+    private float m_LastAttackTime;
 
-
-    public PlayerAttackState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerAttackState(string animBoolName) : base(animBoolName)
     {
-        moveSpeedScale = 0;
-        comboCounter = 0;
     }
 
-    public override void Enter()
+    protected internal override void OnInit(IFsm<Player> fsm)
     {
+        base.OnInit(fsm);
+        m_MoveSpeedScale = 0;
+        m_ComboCounter = 0;
+    }
 
-        base.Enter();
-        comboTimeWindow = player.comboTimeWindow;
-        if (Time.time - lastAttackTime >= comboTimeWindow)
+    protected internal override void OnEnter(IFsm<Player> fsm)
+    {
+        base.OnEnter(fsm);
+        m_ComboTimeWindow = m_Player.ComboTimeWindow;
+        if (Time.time - m_LastAttackTime >= m_ComboTimeWindow)
         {
-            comboCounter = 0;
+            m_ComboCounter = 0;
         }
-        player.animator.SetInteger("comboCounter", comboCounter);
-
+        m_Player.Animator.SetInteger("comboCounter", m_ComboCounter);
     }
 
-    public override void Exit()
+    protected internal override void OnLeave(IFsm<Player> fsm, bool isShutdown)
     {
-        base.Exit();
-        comboCounter = (comboCounter + 1) % 3;
-        lastAttackTime = Time.time;
-
+        base.OnLeave(fsm, isShutdown);
+        m_ComboCounter = (m_ComboCounter + 1) % 3;
+        m_LastAttackTime = Time.time;
     }
 
-    public override void Update()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Update();
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+        if(m_IsChanged) return;
 
-        if (triggerCalled)
+        if (m_IsTriggerCalled)
         {
-            player.stateMachine.ChangeState(typeof(PlayerIdleState));
+            ChangeState<PlayerIdleState>(fsm);
         }
     }
 

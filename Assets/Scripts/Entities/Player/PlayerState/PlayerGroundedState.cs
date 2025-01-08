@@ -1,40 +1,30 @@
 using System;
+using GameFramework.Fsm;
 using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
-    public PlayerGroundedState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerGroundedState(string animBoolName) : base(animBoolName)
     {
     }
 
-    public override void Enter()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Enter();
-    }
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+        if (m_IsChanged) return;
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void Update()
-    {
-        base.Update();
-
-        if (isFinished) return;
-
-        else if (player.IsGroundDetected())
+        else if (m_Player.IsGroundDetected())
         {
-            if (player.IsTryAttack)
-                player.stateMachine.ChangeState(typeof(PlayerAttackState));
-            else if (player.IsTryJump)
-                player.stateMachine.ChangeState(typeof(PlayerJumpState));
-
+            if (m_Player.IsTryAttack)
+                ChangeState<PlayerAttackState>(fsm);
+            else if (m_Player.IsTryJump)
+                ChangeState<PlayerJumpState>(fsm);
         }
         else
         {
-            player.ResetBufferCoyoteTimer();
-            player.stateMachine.ChangeState(typeof(PlayerAirState));
+            m_Player.ResetCoyoteTimer();
+            ChangeState<PlayerAirState>(fsm);
         }
+
     }
 }

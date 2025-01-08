@@ -1,34 +1,22 @@
 
 using System;
+using GameFramework.Fsm;
 using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerMoveState(string animBoolName) : base(animBoolName)
     {
     }
 
-    public override void Enter()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Enter();
-    }
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+        if(m_IsChanged) return;
 
-    public override void Exit()
-    {
-        base.Exit();
-        
-    }
-
-    public override void Update()
-    {
-        base.Update();
-
-        if(isFinished) return;
-        if(Math.Abs(inputHorizontal) < 0.01f)
+        if(Math.Abs(m_InputHorizontal) < 0.01f)
         {
-            player.stateMachine.ChangeState(typeof(PlayerIdleState));
+            ChangeState<PlayerIdleState>(fsm);
         }
     }
-
-    
 }

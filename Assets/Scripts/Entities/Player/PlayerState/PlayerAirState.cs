@@ -1,35 +1,23 @@
+using GameFramework.Fsm;
 using UnityEngine;
 
 public class PlayerAirState : PlayerState
 {
-    public PlayerAirState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerAirState(string animBoolName) : base(animBoolName)
     {
     }
 
-    public override void Enter()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Enter();
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
 
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void Update()
-    {
-        base.Update();
-
-        player.bufferCoyoteTimer -= Time.deltaTime;
-
-        if(player.IsAtCoyoteTime && player.IsTryJump)
+        if(m_Player.IsTryJumpAtCoyoteTime)
         {
-            player.stateMachine.ChangeState(typeof(PlayerJumpState));
+            ChangeState<PlayerJumpState>(fsm);
         } 
-        else if(player.IsGroundDetected())
+        else if(m_Player.IsGroundDetected())
         {
-            player.stateMachine.ChangeState(typeof(PlayerIdleState));
+            ChangeState<PlayerIdleState>(fsm);
         }
     }
 }

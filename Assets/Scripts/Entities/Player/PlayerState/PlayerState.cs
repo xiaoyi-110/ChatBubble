@@ -1,53 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameFramework.Fsm;
 using UnityEngine;
 
-public class PlayerState : IFSMState
+public class PlayerState : FsmState<Player>
 {
-    protected bool isFinished;
-    protected Player player;
+    protected bool m_IsChanged;
+    protected Player m_Player;
+    protected Rigidbody2D m_Rb;
 
-    protected Rigidbody2D rb;
+    protected float m_InputHorizontal;
+    protected float m_MoveSpeedScale;
+    protected bool m_IsTriggerCalled;
+    private readonly string m_AnimBoolName;
 
-    protected float inputHorizontal;
-    protected float moveSpeedScale;
-    protected bool triggerCalled;
-    private readonly string animBoolName;
-
-    public PlayerState(Player _player , string _animBoolName)
-    {
-        player = _player;
-        animBoolName = _animBoolName;
-        moveSpeedScale = 1f;
+    public PlayerState(string animBoolName) 
+    { 
+        m_AnimBoolName = animBoolName;
     }
 
-    public virtual void Enter()
+
+    protected internal override void OnInit(IFsm<Player> fsm)
     {
-        player.animator.SetBool(animBoolName, true);
-        isFinished = false;
-        triggerCalled = false;
-        rb = player.rb;
-        
+        m_Player = fsm.Owner;
+        m_MoveSpeedScale = 1f;
     }
 
-    public virtual void Exit()
+    protected internal override void OnEnter(IFsm<Player> fsm)
     {
-        player.animator.SetBool(animBoolName, false);
-        isFinished = true;
+        m_Player.Animator.SetBool(m_AnimBoolName, true);
+        m_IsChanged = false;
+        m_IsTriggerCalled = false;
+        m_Rb = m_Player.Rb;
     }
 
-    public virtual void Update()
+    protected internal override void OnLeave(IFsm<Player> fsm, bool isShutdown)
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        player.SetVelocity(moveSpeedScale * inputHorizontal * player.moveSpeed, rb.velocity.y);
+        m_Player.Animator.SetBool(m_AnimBoolName, false);
+        m_IsChanged = true;
+    }
 
-        player.animator.SetFloat("yVelocity", rb.velocity.y);
-        
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
+    {
+        m_InputHorizontal = Input.GetAxisRaw("Horizontal");
+        m_Player.SetVelocity(m_MoveSpeedScale * m_InputHorizontal * m_Player.MoveSpeed, m_Rb.velocity.y);
+
+        m_Player.Animator.SetFloat("yVelocity", m_Rb.velocity.y);
     }
 
     public virtual void AnimationFinishTrigger()
     {
-        triggerCalled = true;
+        m_IsTriggerCalled = true;
     }
 
     

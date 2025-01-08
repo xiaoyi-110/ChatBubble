@@ -5,25 +5,25 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [Header("Collision info")]
-    [SerializeField] protected Transform groundCheck;
-    [SerializeField] protected float checkGroundDistance = 0.15f;
+    [SerializeField] protected Transform m_GroundCheck;
+    [SerializeField] protected float m_CheckGroundDistance = 0.15f;
     [Space]
-    [SerializeField] protected Transform wallCheck;
-    [SerializeField] protected float checkWallDistance = 0.15f;
-    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected Transform m_WallCheck;
+    [SerializeField] protected float m_CheckWallDistance = 0.15f;
+    [SerializeField] protected LayerMask m_GroundLayer;
 
-    public Rigidbody2D rb {get; private set;}
-    public Animator animator { get; private set;}
-    protected int facingDirection = 1;//1为右，-1为左
+    public Rigidbody2D Rb {get; private set;}
+    public Animator Animator { get; private set;}
+    protected int m_FacingDirection = 1;//1为右，-1为左
 
 
-    public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, checkGroundDistance, groundLayer);
-    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right, checkWallDistance, groundLayer);
+    public bool IsGroundDetected() => Physics2D.Raycast(m_GroundCheck.position, Vector2.down, m_CheckGroundDistance, m_GroundLayer);
+    public bool IsWallDetected() => Physics2D.Raycast(m_WallCheck.position, Vector2.right, m_CheckWallDistance, m_GroundLayer);
 
     protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
+        Rb = GetComponent<Rigidbody2D>();
+        Animator = GetComponentInChildren<Animator>();
     }
 
     protected virtual void Start(){}
@@ -32,14 +32,14 @@ public class Entity : MonoBehaviour
     protected virtual void Update()
     {
         
-        FlipController(rb.velocity.x);  
+        FlipController(Rb.velocity.x);  
     }
 
     
 
     public void SetVelocity(float _xVelocity, float _yVelocity)    
     {
-        rb.velocity = new Vector2(_xVelocity, _yVelocity);
+        Rb.velocity = new Vector2(_xVelocity, _yVelocity);
     }
 
 
@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour
     private void FlipController(float x)
     {
         // 当朝向方向与移动方向相反时，翻转角色
-        if (facingDirection * x < 0)
+        if (m_FacingDirection * x < 0)
         {
             Flip();
         }
@@ -61,14 +61,14 @@ public class Entity : MonoBehaviour
     /// </summary>
     private void Flip()
     {
-        facingDirection *= -1;
+        m_FacingDirection *= -1;
         transform.Rotate(0f, 180f, 0f);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - checkGroundDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + checkWallDistance * facingDirection, wallCheck.position.y));
+        Gizmos.DrawLine(m_GroundCheck.position, new Vector3(m_GroundCheck.position.x, m_GroundCheck.position.y - m_CheckGroundDistance));
+        Gizmos.DrawLine(m_WallCheck.position, new Vector3(m_WallCheck.position.x + m_CheckWallDistance * m_FacingDirection, m_WallCheck.position.y));
     }
     
 }

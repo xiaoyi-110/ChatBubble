@@ -1,29 +1,28 @@
+using GameFramework.Fsm;
 using UnityEngine;
 
 public class PlayerJumpState : PlayerState
 {
-    public PlayerJumpState(Player _player, string _animBoolName) : base(_player, _animBoolName)
+    public PlayerJumpState(string animBoolName) : base(animBoolName)
     {
-    }
-    
-    public override void Enter()
-    {
-        base.Enter();
-        rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
-        player.bufferCoyoteTimer = -1f;
     }
 
-    public override void Exit()
+    protected internal override void OnEnter(IFsm<Player> fsm)
     {
-        base.Exit();
+        base.OnEnter(fsm);
+        m_Player.SetVelocity(m_Rb.velocity.x, m_Player.JumpForce);
+        m_Player.ClearCoyoteTimer();
     }
 
-    public override void Update()
+    protected internal override void OnUpdate(IFsm<Player> fsm, float elapseSeconds, float realElapseSeconds)
     {
-        base.Update();
-        if(rb.velocity.y < 0)
+        base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+        if(m_IsChanged) return;
+
+        if(m_Rb.velocity.y < 0)
         {
-            player.stateMachine.ChangeState(typeof(PlayerAirState));
+            ChangeState<PlayerAirState>(fsm);
         }
     }
+    
 }

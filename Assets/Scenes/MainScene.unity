@@ -410,18 +410,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0df8944c00482c45999f86de4b3089b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 2056725591}
-  checkGroundDistance: 0.15
-  wallCheck: {fileID: 242506553}
-  checkWallDistance: 0.15
-  groundLayer:
+  m_GroundCheck: {fileID: 2056725591}
+  m_CheckGroundDistance: 0.15
+  m_WallCheck: {fileID: 242506553}
+  m_CheckWallDistance: 0.15
+  m_GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 7.5
-  jumpForce: 15
-  comboTimeWindow: 0.9
-  bufferCoyoteTimeWindow: 0.1
-  bufferCoyoteTimer: 0
+  MoveSpeed: 8
+  JumpForce: 7.5
+  ComboTimeWindow: 0.9
+  m_CoyoteTimeWindow: 0.9
 --- !u!70 &670417480
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
