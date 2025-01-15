@@ -45,6 +45,21 @@ public class PlayerState : FSMState<Player>
         m_Player.SetVelocity(m_MoveSpeedScale * m_InputHorizontal * m_Player.MoveSpeed, m_Rb.velocity.y);
 
         m_Player.Animator.SetFloat("yVelocity", m_Rb.velocity.y);
+
+        if(m_Player.CoyoteTimer >= 0)
+        {
+            m_Player.CoyoteTimer -= Time.deltaTime;
+        }
+        if(m_Player.SprintTimer >= 0)
+        {
+            m_Player.SprintTimer -= Time.deltaTime;
+        }
+
+        if(m_Player.IsTrySprint)
+        {
+            ChangeState<PlayerSprintState>(fsm);
+            m_IsChanged = true;
+        }
     }
 
     public virtual void AnimationFinishTrigger()

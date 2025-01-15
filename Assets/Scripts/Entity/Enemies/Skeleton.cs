@@ -12,7 +12,5 @@ public class Skeleton : Entity
         base.Start();
     }
 
-    protected override void Update() {
-        base.Update();
-    }
+    
 }

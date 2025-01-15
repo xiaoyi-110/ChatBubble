@@ -11,6 +11,7 @@ public class PlayerAirState : PlayerState
     {
 
         base.OnUpdate(fsm);
+        if (m_IsChanged) return;
 
         if(m_Player.IsTryJumpAtCoyoteTime)
         {

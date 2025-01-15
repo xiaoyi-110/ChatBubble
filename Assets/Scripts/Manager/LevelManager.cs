@@ -10,10 +10,25 @@ public class LevelManager : MonoSingleton<LevelManager>
     [SerializeField] private CinemachineConfiner2D m_Confiner;
     private Vector3 m_PlayerStartPosition;
 
-    public bool IsPause;
+    private bool m_IsPause;
+    public bool IsPause
+    {
+        set
+        {
+            if(m_IsPause != value)
+            {
+                m_IsPause = value;
+                EventManager.Instance.TriggerEvent(OnLevelPauseChangeEventArgs.EventId, this, OnLevelPauseChangeEventArgs.Create(m_IsPause));
+            }
+        }
+        get
+        {
+            return m_IsPause;
+        }
+    }
 
     private void Start()
-    {   
+    { 
         m_Player.gameObject.SetActive(false);
         IsPause = true;
     }
@@ -26,7 +41,6 @@ public class LevelManager : MonoSingleton<LevelManager>
         ChangeCameraPositionImmediately(m_PlayerStartPosition);
         m_Player.gameObject.SetActive(true);
 
-        Time.timeScale = 1;
         IsPause = false;
 
         InitCamera();

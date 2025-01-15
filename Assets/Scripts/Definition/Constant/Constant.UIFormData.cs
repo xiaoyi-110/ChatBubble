@@ -5,5 +5,6 @@ public static partial class Constant
     {
         public const string Menu = "MenuForm";
         public const string Level = "LevelForm";
+        public const string TeamIntro = "TeamIntroForm";
     }
 }

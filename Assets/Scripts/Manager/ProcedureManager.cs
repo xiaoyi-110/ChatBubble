@@ -23,6 +23,7 @@ public class ProcedureManager : MonoSingleton<ProcedureManager>
             ProcedureChangeScene.Create(),
             ProcedureMenu.Create(),
             ProcedureLevel.Create(),
+            ProcedureTeamIntro.Create()
         };
     
         m_FSM = FSM<ProcedureManager>.Create(this, m_StateList);

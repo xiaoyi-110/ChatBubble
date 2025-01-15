@@ -36,7 +36,7 @@ public class ProcedureChangeScene : ProcedureBase
         if (!m_IsChangeSceneComplete)
         {
             return;
-        }
+        }   
         
             
         if (m_IsMenuScene)

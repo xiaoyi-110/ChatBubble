@@ -1,16 +1,27 @@
+using System;
+using JetBrains.Annotations;
+
 public class ProcedureMenu : ProcedureBase
 {
 
-    private bool m_StartGame = false;
+    public enum ProcedureMenuState : byte
+    {
+        None = 0,
+        StartGame,
+        StartTeamIntro,   
+    }
+
+    private ProcedureMenuState m_currentState;
+    
 
     public override void OnEnter(FSM<ProcedureManager> fsm)
     {
         base.OnEnter(fsm);
 
-        m_StartGame = false;
+        m_currentState = ProcedureMenuState.None;
 
         UIManager.Instance.OpenUIForm(Constant.UIFormData.Menu, this);
-        //UIManager.Instance.OpenUIForm(
+        
     }
 
     public override void OnLeave(FSM<ProcedureManager> fsm)
@@ -25,18 +36,26 @@ public class ProcedureMenu : ProcedureBase
         base.OnUpdate(fsm);
 
 
-        if (m_StartGame)
+        switch (m_currentState)
         {
-            fsm.SetData(Constant.ProcedureData.NextSceneId, Constant.SceneData.Level1);
-            ChangeState<ProcedureChangeScene>(fsm);
-            
+            case ProcedureMenuState.StartGame:    
+                fsm.SetData(Constant.ProcedureData.NextSceneId, Constant.SceneData.Level1);
+                ChangeState<ProcedureChangeScene>(fsm);
+                break;
+            case ProcedureMenuState.StartTeamIntro:
+                ChangeState<ProcedureTeamIntro>(fsm);
+                break;
+            default:
+                break;
         }
     }
 
-    public void StartGame()
+    public void StartState(ProcedureMenuState state)
     {
-        m_StartGame = true;
+        m_currentState = state;
     }
+
+
 
     public static ProcedureMenu Create()
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Entity
@@ -9,20 +10,25 @@ public class Player : Entity
     [Header("Move info")]
     public float MoveSpeed = 8f;
     public float JumpForce = 7.5f;
+    public float SprintSpeed = 20f;
 
     [Header("Attack info")]
     public float ComboTimeWindow = .9f;
  
 
-    [Header("Coyote time")]
+    [Header("Time Window")]
     [SerializeField]private float m_CoyoteTimeWindow = .9f;
-    private float m_CoyoteTimer;
+    public float CoyoteTimer;
+    [SerializeField]private float m_SprintTimeWindow = 2f;
+    public float SprintTimer;
   
 
     #region Judge info
-    public bool IsTryJump => Input.GetKeyDown(KeyCode.Space);
+    public bool IsTryJump => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W);
+    public bool IsTrySprint => (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Mouse1)) && SprintTimer <= 0;
     public bool IsTryAttack => Input.GetKeyDown(KeyCode.Mouse0);
-    public bool IsTryJumpAtCoyoteTime => IsTryJump && m_CoyoteTimer > 0;
+    public bool IsTryJumpAtCoyoteTime => IsTryJump && CoyoteTimer > 0;
+    
     #endregion
 
     internal FSM<Player> m_Fsm;
@@ -43,10 +49,9 @@ public class Player : Entity
         CreateFSM();
     }
 
-    protected override void Update()
+    protected override void OnUpdate()
     {
-        if(LevelManager.Instance.IsPause) return;
-        base.Update();
+        base.OnUpdate();
         m_Fsm.OnUpdate();  
     }
 
@@ -58,22 +63,28 @@ public class Player : Entity
             PlayerMoveState.Create(),
             PlayerJumpState.Create(),
             PlayerAirState.Create(),
-            PlayerAttackState.Create()
+            PlayerAttackState.Create(),
+            PlayerSprintState.Create()
         };
         m_Fsm = FSM<Player>.Create(this, m_StateList);
         m_Fsm.StartState<PlayerIdleState>();
     }
 
     public void AnimationTriggerFinished() => ((PlayerState)m_Fsm.CurrentState).AnimationFinishTrigger();
-    
+
+    public void ResetSprintTimer()
+    {
+        SprintTimer = m_SprintTimeWindow;
+    }
+
     public void ResetCoyoteTimer()
     {
-        m_CoyoteTimer = m_CoyoteTimeWindow;
+        CoyoteTimer = m_CoyoteTimeWindow;
     }
 
     public void ClearCoyoteTimer()
     {
-        m_CoyoteTimer = -1;
+        CoyoteTimer = -1;
     }
    
     

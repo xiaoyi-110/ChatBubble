@@ -9,10 +9,5 @@ public static class AssetUtility
         return string.Format("Assets/Scenes/{0}.unity", assetName);
     }
 
-    public static string GetUIFormAsset(string assetName)
-    {
-        return string.Format("Assets/Resouces/Prefabs/UI/{0}.prefab", assetName);
-    }
-
     
 }

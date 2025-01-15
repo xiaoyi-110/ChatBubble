@@ -28,7 +28,12 @@ public class MenuForm : UIForm
 
     public void OnStartButtonClick()
     {
-        m_ProcedureMenu.StartGame();
+        m_ProcedureMenu.StartState(ProcedureMenu.ProcedureMenuState.StartGame);
+    }
+
+    public void OnTeamIntroButtonClick()
+    {
+        m_ProcedureMenu.StartState(ProcedureMenu.ProcedureMenuState.StartTeamIntro);
     }
 
     public void OnQuitButtonClick()

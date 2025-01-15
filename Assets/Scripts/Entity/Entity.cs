@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
     [Header("Collision info")]
-    [SerializeField] protected Transform m_GroundCheck;
+    [SerializeField] protected List<Transform> m_GroundChecks = new List<Transform>();
     [SerializeField] protected float m_CheckGroundDistance = 0.15f;
     [Space]
     [SerializeField] protected Transform m_WallCheck;
@@ -14,10 +16,12 @@ public class Entity : MonoBehaviour
 
     public Rigidbody2D Rb {get; private set;}
     public Animator Animator { get; private set;}
-    protected int m_FacingDirection = 1;//1为右，-1为左
+    public int FacingDirection = 1;//1为右，-1为左
+
+    private bool m_IsPause = false;
 
 
-    public bool IsGroundDetected() => Physics2D.Raycast(m_GroundCheck.position, Vector2.down, m_CheckGroundDistance, m_GroundLayer);
+    public bool IsGroundDetected() => m_GroundChecks.Exists(check => Physics2D.Raycast(check.position, Vector2.down, m_CheckGroundDistance, m_GroundLayer));
     public bool IsWallDetected() => Physics2D.Raycast(m_WallCheck.position, Vector2.right, m_CheckWallDistance, m_GroundLayer);
 
     protected virtual void Awake()
@@ -26,10 +30,29 @@ public class Entity : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
     }
 
-    protected virtual void Start(){}
+    protected virtual void Start(){
+        EventManager.Instance.RegisterEvent(OnLevelPauseChangeEventArgs.EventId, OnLevelPauseChange);
+    }
 
     // Update is called once per frame
     protected virtual void Update()
+    {
+        if(m_IsPause)
+        {
+            return;
+        }
+
+        OnUpdate();
+    }
+
+    protected virtual void FixedUpdate() {
+        if(m_IsPause)
+        {
+            return;
+        }
+    }
+
+    protected virtual void OnUpdate()
     {
         FlipController(Rb.velocity.x);  
     }
@@ -49,7 +72,7 @@ public class Entity : MonoBehaviour
     private void FlipController(float x)
     {
         // 当朝向方向与移动方向相反时，翻转角色
-        if (m_FacingDirection * x < 0)
+        if (FacingDirection * x < 0)
         {
             Flip();
         }
@@ -60,14 +83,33 @@ public class Entity : MonoBehaviour
     /// </summary>
     private void Flip()
     {
-        m_FacingDirection *= -1;
+        FacingDirection *= -1;
         transform.Rotate(0f, 180f, 0f);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(m_GroundCheck.position, new Vector3(m_GroundCheck.position.x, m_GroundCheck.position.y - m_CheckGroundDistance));
-        Gizmos.DrawLine(m_WallCheck.position, new Vector3(m_WallCheck.position.x + m_CheckWallDistance * m_FacingDirection, m_WallCheck.position.y));
+        foreach (Transform check in m_GroundChecks)
+        {
+            Gizmos.DrawLine(check.position, new Vector3(check.position.x, check.position.y - m_CheckGroundDistance));
+        }
+        Gizmos.DrawLine(m_WallCheck.position, new Vector3(m_WallCheck.position.x + m_CheckWallDistance * FacingDirection, m_WallCheck.position.y));
+    }
+
+    public void OnLevelPauseChange(object sender, EventArgs e)
+    {
+        OnLevelPauseChangeEventArgs ne = e as OnLevelPauseChangeEventArgs;
+
+        m_IsPause = ne.IsPause;
+
+        if(Animator != null)
+        {
+            Animator.speed = m_IsPause ? 0 : 1;
+        }
+        if(Rb != null)
+        {
+            Rb.simulated = !m_IsPause;
+        }
     }
     
 }

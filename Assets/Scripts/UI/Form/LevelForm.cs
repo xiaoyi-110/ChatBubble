@@ -4,9 +4,11 @@ using UnityEngine;
 public class LevelForm : UIForm
 {
     private ProcedureLevel m_ProcedureLevel;
-    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject PauseMenuPanel;
+    [SerializeField] private GameObject ControlIntroPanel;
     private bool m_IsTryOpenPauseMenu => Input.GetKeyDown(KeyCode.Escape);
-    private bool m_IsPauseMenuActive => PauseMenu.activeSelf;
+    private bool m_IsTryCloseControlIntro =>  ControlIntroPanel.activeSelf && Input.anyKey;
+    private bool m_IsPauseMenuActive => PauseMenuPanel.activeSelf;
 
     private void Update()
     {
@@ -14,9 +16,13 @@ public class LevelForm : UIForm
         {
             SwitchPauseMenu();
         }
+        if(m_IsTryCloseControlIntro)
+        {
+            CloseControlIntroPanel();
+        }
     }
 
-
+    
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
@@ -38,20 +44,30 @@ public class LevelForm : UIForm
 
     private void SwitchPauseMenu()
     {
-        PauseMenu.SetActive(!m_IsPauseMenuActive);
+        PauseMenuPanel.SetActive(!m_IsPauseMenuActive);
 
         LevelManager.Instance.IsPause = m_IsPauseMenuActive;
-        Time.timeScale = m_IsPauseMenuActive ? 0 : 1;
     }
 
-    public void OnClickBackToGameButton()
+    private void CloseControlIntroPanel()
+    {
+        ControlIntroPanel.SetActive(false);
+        LevelManager.Instance.IsPause = false;
+    }
+
+    public void OnBackToGameButtonClick()
     {
         SwitchPauseMenu();
     }
 
-    public void OnClickBackToMenuButton()
+    public void OnBackToMenuButtonClick()
     {
-        Time.timeScale = 1;
         m_ProcedureLevel.BackToMenu();
+    }
+
+    public void OnOpenControlIntroButtonClick()
+    {
+        PauseMenuPanel.SetActive(false);
+        ControlIntroPanel.SetActive(true);
     }
 }
