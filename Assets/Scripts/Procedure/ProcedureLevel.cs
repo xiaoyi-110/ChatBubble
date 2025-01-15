@@ -4,6 +4,11 @@ using System;
 public class ProcedureLevel : ProcedureBase
 {
     private ProcedureLevelState m_ProcedureLevelState;
+    public enum ProcedureLevelState : byte   
+    {
+        None = 0,
+        BackToMenu
+    }
     public override void OnInit(FSM<ProcedureManager> fsm)
     {
         base.OnInit(fsm);
@@ -29,8 +34,9 @@ public class ProcedureLevel : ProcedureBase
     }
 
     public override void OnUpdate(FSM<ProcedureManager> fsm)
-    {
+    {   
         base.OnUpdate(fsm);
+
 
         switch (m_ProcedureLevelState)
         {

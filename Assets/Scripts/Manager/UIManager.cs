@@ -6,8 +6,7 @@ public class UIManager : MonoSingleton<UIManager>
 {
 
     [SerializeField]private GameObject m_UIRoot;
-   
-
+    [SerializeField]private Transition m_Transition;
     private void Start() {
         if(m_UIRoot == null)
         {
@@ -61,7 +60,16 @@ public class UIManager : MonoSingleton<UIManager>
         return m_UIRoot.transform.Find(uiFormName) != null;
     }
 
-    
+    public void StartTransitionFadeIn(ProcedureChangeScene procedureChangeScene)
+    { 
+        m_Transition.FadeIn(procedureChangeScene);
+    }   
+
+    public void StartTransitionFadeOut()
+    {
+        m_Transition.FadeOut();
+    }
+
 
     
 

@@ -1,25 +1,31 @@
 
 using System;
-using UnityEditor.SearchService;
-using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine;
 
 public class ProcedureChangeScene : ProcedureBase
 {
     private string m_SceneName;
     private bool m_IsMenuScene;
     private bool m_IsChangeSceneComplete = false;
+
+    public bool IsFadeInComplete;
+    public bool IsFadeOutComplete;
+
     public override void OnEnter(FSM<ProcedureManager> fsm)
     {
         base.OnEnter(fsm);
         m_IsChangeSceneComplete = false;
+        IsFadeInComplete = false;
+        IsFadeOutComplete = false;
 
         m_SceneName = fsm.GetData(Constant.ProcedureData.NextSceneId);
         m_IsMenuScene = m_SceneName == Constant.SceneData.Menu;
 
         EventManager.Instance.RegisterEvent(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
-
-        ScenesManager.Instance.UnLoadAllScenes();
-        ScenesManager.Instance.LoadScene(AssetUtility.GetSceneAsset(m_SceneName), this);
+        UIManager.Instance.StartTransitionFadeIn(this);
+        
+        
     }
 
     public override void OnLeave(FSM<ProcedureManager> fsm)
@@ -27,13 +33,15 @@ public class ProcedureChangeScene : ProcedureBase
         base.OnLeave(fsm);
 
         EventManager.Instance.UnRegisterEvent(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
+        UIManager.Instance.StartTransitionFadeOut();
     }
 
     public override void OnUpdate(FSM<ProcedureManager> fsm)
     {
         base.OnUpdate(fsm);
 
-        if (!m_IsChangeSceneComplete)
+
+        if (!m_IsChangeSceneComplete || !IsFadeInComplete)
         {
             return;
         }   
@@ -48,6 +56,13 @@ public class ProcedureChangeScene : ProcedureBase
             ChangeState<ProcedureLevel>(fsm);
         }
         
+    }
+
+    public void OnTransitionFadeInComplete()
+    {
+        IsFadeInComplete = true;
+        ScenesManager.Instance.UnLoadAllScenes();
+        ScenesManager.Instance.LoadScene(m_SceneName, this);
     }
 
     public void OnLoadSceneSuccess(object sender, EventArgs e)
