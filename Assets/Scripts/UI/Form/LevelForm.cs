@@ -46,13 +46,13 @@ public class LevelForm : UIForm
     {
         PauseMenuPanel.SetActive(!m_IsPauseMenuActive);
 
-        LevelManager.Instance.IsPause = m_IsPauseMenuActive;
+        //LevelManager.Instance.IsPause = m_IsPauseMenuActive;
     }
 
     private void CloseControlIntroPanel()
     {
         ControlIntroPanel.SetActive(false);
-        LevelManager.Instance.IsPause = false;
+        //LevelManager.Instance.IsPause = false;
     }
 
     public void OnBackToGameButtonClick()

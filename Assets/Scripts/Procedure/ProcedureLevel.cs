@@ -20,7 +20,7 @@ public class ProcedureLevel : ProcedureBase
         base.OnEnter(fsm);
         m_ProcedureLevelState = ProcedureLevelState.None;
 
-        LevelManager.Instance.InitLevel();
+        //LevelManager.Instance.InitLevel();
         UIManager.Instance.OpenUIForm(Constant.UIFormData.Level, this);
     }
 
@@ -29,7 +29,7 @@ public class ProcedureLevel : ProcedureBase
     {
         base.OnLeave(fsm);
 
-        LevelManager.Instance.ExitLevel();
+        //LevelManager.Instance.ExitLevel();
         UIManager.Instance.CloseUIForm(Constant.UIFormData.Level, this);
     }
 
