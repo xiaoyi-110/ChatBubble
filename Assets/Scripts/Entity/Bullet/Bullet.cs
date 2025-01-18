@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public float Direction=0;
     public float Speed;
     public bool IsAttackable;
-
     private bool IsBeHit;
 
     /// <summary>
@@ -41,6 +40,7 @@ public class Bullet : MonoBehaviour
     public void Init(BulletData data) {
     
         Speed = data.Speed;
+        IsAttackable = data.IsAttackable == 1;
     
     }
 
@@ -53,8 +53,6 @@ public class Bullet : MonoBehaviour
     public void BeHit()
     {
         if(!IsAttackable || IsBeHit) return;
-
-        
 
         ObjectPool.Instance.GetObject("BoomEffect", transform.position);
         IsBeHit = true;
@@ -90,7 +88,6 @@ public class Bullet : MonoBehaviour
                     })// 线性旋转
         );
     }
-
 
 
     private void OnDisable() {

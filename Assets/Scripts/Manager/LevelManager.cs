@@ -9,7 +9,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public List<GameObject> Spawns;
     private LevelState m_LevelState;
-    public LevelData m_LevelData;
+    public LevelData_SO m_LevelData;
     public Transform BulletRoot; 
     public Player m_Player;
     private float m_LevelTimer;
@@ -24,7 +24,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     private void Start() {
 
         m_LevelState = LevelState.PlayerAovid;
-        m_LevelData.bullets.Sort();
+        m_LevelData.Sheet1.Sort();
         InitLevel();
 
     }
@@ -49,9 +49,9 @@ public class LevelManager : MonoSingleton<LevelManager>
                 //TODO
                 break;
             case LevelState.PlayerAovid:
-                if(m_BulletIndex < m_LevelData.bullets.Count && m_LevelTimer >= m_LevelData.bullets[m_BulletIndex].SpawnTime)
+                if(m_BulletIndex < m_LevelData.Sheet1.Count && m_LevelTimer >= m_LevelData.Sheet1[m_BulletIndex].Time)
                 {
-                    SpawnBullet(m_LevelData.bullets[m_BulletIndex]);
+                    SpawnBullet(m_LevelData.Sheet1[m_BulletIndex]);
                 }
                 break;
             default:
@@ -72,7 +72,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
         m_BulletIndex++;
         // 循环发射弹幕
-        if(m_BulletIndex >= m_LevelData.bullets.Count)
+        if(m_BulletIndex >= m_LevelData.Sheet1.Count)
         {
             m_BulletIndex = 0;
             m_LevelTimer = 0;
@@ -89,10 +89,10 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public void ClearBullet()
     {
-        GameObject[] bullets = BulletRoot.GetComponentsInChildren<GameObject>();
-        for(int i = 0; i < bullets.Length; i++)
+        GameObject[] levelDatas = BulletRoot.GetComponentsInChildren<GameObject>();
+        for(int i = 0; i < levelDatas.Length; i++)
         {
-            ObjectPool.Instance.RecycleObject(bullets[i]);
+            ObjectPool.Instance.RecycleObject(levelDatas[i]);
         }
     }
 }
