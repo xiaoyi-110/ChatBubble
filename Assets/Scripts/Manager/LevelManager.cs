@@ -29,7 +29,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private void Start()
     { 
-        m_Player.gameObject.SetActive(false);
+        
         IsPause = true;
     }
 

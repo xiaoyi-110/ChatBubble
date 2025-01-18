@@ -35,6 +35,7 @@ public class EventManager : MonoSingleton<EventManager>
 
     public void TriggerEvent(int eventId, object sender, EventArgs args)
     {
+        
         if (m_EventHandlers.ContainsKey(eventId))
         {
             m_EventHandlers[eventId]?.Invoke(sender, args);

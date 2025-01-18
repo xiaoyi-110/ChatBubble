@@ -1,7 +1,14 @@
 
+using System.Diagnostics;
 using UnityEngine;
 public class Bullet : MonoBehaviour
 {
+    public enum BulletType {
+        DestructiveBullet,
+        Bullet
+    }
+
+    public BulletType Type;
     // 欧拉角
     public float Direction;
     public float Speed;
@@ -17,4 +24,5 @@ public class Bullet : MonoBehaviour
     private void Update() {
         transform.Translate(Vector3.right * Speed * Time.deltaTime);
     }
+
 }

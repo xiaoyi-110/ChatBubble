@@ -7,6 +7,10 @@ public class UIManager : MonoSingleton<UIManager>
 
     [SerializeField]private GameObject m_UIRoot;
     [SerializeField]private Transition m_Transition;
+
+    [Header("Level UI")]
+    public GameObject m_PlayerHPBar;
+
     private void Start() {
         if(m_UIRoot == null)
         {
