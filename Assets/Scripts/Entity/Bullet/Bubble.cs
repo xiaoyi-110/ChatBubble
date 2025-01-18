@@ -23,7 +23,7 @@ public class Bubble : MonoBehaviour
     private void Update()
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, text.preferredWidth+offset);
-        m_Collider.size = new Vector2(text.preferredWidth + box_offset, m_Collider.size.y);
+        m_Collider.size = new Vector2(text.preferredWidth + box_offset, rectTransform.rect.height);
     }
 
     public void Init(BulletData data)

@@ -96,10 +96,10 @@ TextureImporter:
       name: Player@Attacked_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 325
-        width: 1508
-        height: 2603
+        x: 0
+        y: 0
+        width: 1633
+        height: 3266
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,10 +117,10 @@ TextureImporter:
       name: Player@Attacked_1
       rect:
         serializedVersion: 2
-        x: 1833
-        y: 406
-        width: 1348
-        height: 2328
+        x: 1633
+        y: 0
+        width: 1633
+        height: 3266
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

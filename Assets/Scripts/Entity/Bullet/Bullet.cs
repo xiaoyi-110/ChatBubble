@@ -27,10 +27,16 @@ public class Bullet : MonoBehaviour
     }
 
     public void Init(BulletData data) {
-    {
+    
         Type = (BulletType)data.Type;
         Speed = data.Speed;
+    
     }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Boundary")) {
+            Destroy(gameObject);
+        }
     }
 
 }

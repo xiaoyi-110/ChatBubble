@@ -8,6 +8,8 @@ public class FSM<T>
     private Dictionary<string, string> m_Datas;
     public T Owner;
     public FSMState<T> CurrentState;
+    public object Data;
+    
 
     public FSM(T owner, List<FSMState<T>> states)
     {
@@ -47,6 +49,20 @@ public class FSM<T>
 
         CurrentState.OnLeave(this);
         CurrentState = m_StatesDictionary[typeof(TState)];
+        CurrentState.OnEnter(this);
+        
+    }
+
+    public void ChangeState(Type stateType)
+    {
+        if (!m_StatesDictionary.ContainsKey(stateType))
+        {
+            Debug.LogError("State not found");
+            return;
+        }
+
+        CurrentState.OnLeave(this);
+        CurrentState = m_StatesDictionary[stateType];
         CurrentState.OnEnter(this);
         
     }

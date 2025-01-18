@@ -44,14 +44,11 @@ public class PlayerHPBar : MonoBehaviour
     }
     public void OnPlayerHpChange(object sender, EventArgs e)
     {
-        Debug.Log(sender);
         OnPlayerHPChangeEventArgs args = e as OnPlayerHPChangeEventArgs;
         int hp = args.HP;
-        Debug.Log(hp);
         if(HP != hp)
         {
             HP = hp;
-            Debug.Log("HP Change:" + HP);
 
             for(int i = 1;i<=MaxHP;i++)
             {

@@ -96,10 +96,10 @@ TextureImporter:
       name: Player@jump_0
       rect:
         serializedVersion: 2
-        x: 93
-        y: 517
-        width: 1273
-        height: 2270
+        x: 0
+        y: 0
+        width: 1632
+        height: 3264
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,10 +117,10 @@ TextureImporter:
       name: Player@jump_1
       rect:
         serializedVersion: 2
-        x: 1768
-        y: 525
-        width: 1496
-        height: 2220
+        x: 1632
+        y: 0
+        width: 1632
+        height: 3264
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

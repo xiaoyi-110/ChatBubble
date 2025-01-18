@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Obstacle
   - Enemy
+  - Bullet
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Platform
+  - Ground
   - Player
   - Enemy
   - 
@@ -41,11 +43,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 512967343
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Object Back 1
     uniqueID: 1796923263
