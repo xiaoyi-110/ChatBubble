@@ -38,12 +38,12 @@ public class LevelManager : MonoSingleton<LevelManager>
         
         m_PlayerStartPosition = GameObject.Find(Constant.LevelData.PlayerStartPosition).transform.position;
         m_Player.transform.position = m_PlayerStartPosition;
-        ChangeCameraPositionImmediately(m_PlayerStartPosition);
+        //ChangeCameraPositionImmediately(m_PlayerStartPosition);
         m_Player.gameObject.SetActive(true);
 
         IsPause = false;
 
-        InitCamera();
+        //InitCamera();
     }
 
     private void InitCamera()
@@ -55,7 +55,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     public void ExitLevel()
     {
         m_Player.transform.position = Vector3.zero;
-        ChangeCameraPositionImmediately(Vector3.zero);
+        //ChangeCameraPositionImmediately(Vector3.zero);
         m_Player.gameObject.SetActive(false);
         IsPause = true;
     }
