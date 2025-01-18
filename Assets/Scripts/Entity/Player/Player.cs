@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public float GroundCheckLen = 1f;
     public Transform CeilingCheck;
     public float CeillingCheckLen = 1f;
+    public Transform AttackCheck;
+    public float AttackRadius = 1f;
 
     public bool IsGrounded => Physics2D.Raycast(GroundCheck.position, Vector2.down, GroundCheckLen, GroundLayer);
     public bool IsCeiling => Physics2D.Raycast(CeilingCheck.position, Vector2.up, CeillingCheckLen, GroundLayer);
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
     #region Control
     public bool isTryJump => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
     public bool isTryAir => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+    public bool isTryAttack => Input.GetKeyDown(KeyCode.Space);
     #endregion
     
 
@@ -50,11 +53,16 @@ public class Player : MonoBehaviour
         m_Animator = GetComponentInChildren<Animator>();
         m_RD = GetComponentInChildren<Rigidbody2D>();
 
+        
+        CreateFSM();
+        Init();
+    }
+
+    private void Init()
+    {
         CurrentHP = MaxHP;
         InvincibleTimer = -1f;
         IsInvincible = false;
-
-        CreateFSM();
     }
 
     private void CreateFSM()
@@ -76,7 +84,7 @@ public class Player : MonoBehaviour
 
     private void Update() {
         m_FSM.OnUpdate();
-
+        Attack();
         InvincibleTimer -= Time.deltaTime;
     }
 
@@ -95,12 +103,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.transform.position, AttackRadius);
+        foreach(var collider in colliders)
+        {
+            if (collider.CompareTag("Bullet"))
+            {
+                collider.GetComponent<Bullet>().BeHit();
+            }
+        }
+    }
+
     
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.white;
         Gizmos.DrawLine(GroundCheck.position, GroundCheck.position + Vector3.down * GroundCheckLen);
         Gizmos.DrawLine(CeilingCheck.position, CeilingCheck.position + Vector3.up * CeillingCheckLen);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(AttackCheck.position, AttackRadius);
     }
 
     private void OnTriggerStay2D(Collider2D other)

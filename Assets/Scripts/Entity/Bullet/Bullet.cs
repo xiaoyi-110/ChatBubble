@@ -1,24 +1,35 @@
 
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using DG.Tweening;
 public class Bullet : MonoBehaviour
 {
-    public enum BulletType:int {
-        DestructiveBullet,
-        Bullet
-    }
-
-    public BulletType Type;
     // 欧拉角
     public float Direction=0;
     public float Speed;
+    public bool IsAttackable;
 
-    private BoxCollider2D m_Collider;
+    private bool IsBeHit;
+
+    /// <summary>
+    /// 击飞动画
+    /// </summary>
+    // 击飞的目标位置
+    public Vector3 targetPosition;
+    // 击飞的时间（秒）
+    public float duration = 1f;
+    // 旋转的角度（每秒）
+    public Vector3 rotationSpeed = new Vector3(0, 0, 720); // 旋转的角度（每秒）
+
+
 
     private void Start() {
-        m_Collider = GetComponent<BoxCollider2D>();
-        transform.Rotate(new Vector3(0, 0, Direction));
+        transform.Rotate(new Vector3(0, 0, Direction));   
+        
+    }
+
+    private void OnEnable() {
+        IsAttackable = true;
+        IsBeHit = false;
     }
 
 
@@ -28,15 +39,56 @@ public class Bullet : MonoBehaviour
 
     public void Init(BulletData data) {
     
-        Type = (BulletType)data.Type;
         Speed = data.Speed;
     
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Boundary")) {
-            Destroy(gameObject);
+            ObjectPool.Instance.RecycleObject(gameObject);
         }
+    }
+
+    public void BeHit()
+    {
+        if(!IsAttackable || IsBeHit) return;
+
+        
+
+        ObjectPool.Instance.GetObject("BoomEffect", transform.position);
+        IsBeHit = true;
+        //随机化目标位置
+        targetPosition = transform.position + new Vector3(-1f, Random.Range(-1f, 1f), 0) * 10f;
+        StartCoroutine(HitAndSpinCoroutine());
+    }
+
+    /// <summary>
+    /// 击飞动画
+    /// </summary>
+    /// <returns></returns>
+    public System.Collections.IEnumerator HitAndSpinCoroutine()
+    {
+        
+        // 暂停一帧以确保初始状态被正确渲染
+        yield return null;
+
+        // DoTween的位置和旋转动画
+        transform.DOMove(targetPosition, duration)
+                 .SetEase(Ease.OutQuad) // 设置缓动类型为抛物线型退出
+                 .OnComplete(() => 
+                 {
+                     ObjectPool.Instance.RecycleObject(gameObject);
+                 });
+
+        //使用DO Shake Rotation 或者直接设置旋转目标
+        transform.DORotate(rotationSpeed * duration, duration)
+                 .SetEase(Ease.Linear); // 线性旋转
+    }
+
+
+
+    private void OnDisable() {
+        transform.DOKill();
     }
 
 }

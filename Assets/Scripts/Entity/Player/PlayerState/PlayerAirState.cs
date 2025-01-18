@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAirState : PlayerState
@@ -23,10 +24,19 @@ public class PlayerAirState : PlayerState
     {
         base.OnEnter(fsm);
         fsm.Data = typeof(PlayerAirState);
+        
     }
+
+    public override void OnLeave(FSM<Player> fsm)
+    {
+        base.OnLeave(fsm);
+       
+    }
+
     public static PlayerAirState Create(string animName)
     {
         return new PlayerAirState(animName);
     }
+
 }
 

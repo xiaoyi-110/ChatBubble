@@ -9,12 +9,9 @@ public class LevelManager : MonoSingleton<LevelManager>
     public List<GameObject> Spawns;
     private LevelState m_LevelState;
     public LevelData m_LevelData;
-    public BulletPrefabData m_BulletPrefabData;
-    public Transform BulletRoot;
-    private Dictionary<int, GameObject> m_BulletPrefabDict;
+    public Transform BulletRoot; 
     private float m_LevelTimer;
     private int m_BulletIndex;
-    
     
     
     public enum LevelState{
@@ -27,13 +24,6 @@ public class LevelManager : MonoSingleton<LevelManager>
         m_LevelState = LevelState.PlayerAovid;
 
         m_LevelData.bullets.Sort();
-
-        // 读取子弹Prefab数据
-        m_BulletPrefabDict = new Dictionary<int, GameObject>();
-        for(int i = 0; i < m_BulletPrefabData.bulletPrefabs.Count; i++)
-        {
-            m_BulletPrefabDict.Add(i, m_BulletPrefabData.bulletPrefabs[i]);
-        }
 
     }
 
@@ -66,10 +56,12 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private void SpawnBullet(BulletData bulletData)
     {
-        GameObject bullet = Instantiate(m_BulletPrefabDict[bulletData.Type], BulletRoot.transform);
+        GameObject bullet = ObjectPool.Instance.GetObject(bulletData.PrefabName);
+        bullet.transform.SetParent(BulletRoot);
         bullet.GetComponent<Bullet>().Init(bulletData);
         bullet.GetComponent<Bubble>()?.Init(bulletData);
-
+        bullet.GetComponent<Emoji>()?.Init(bulletData);
+        bullet.transform.position = Spawns[bulletData.SpawnIndex].transform.position;
 
         m_BulletIndex++;
         // 循环发射弹幕
@@ -79,6 +71,6 @@ public class LevelManager : MonoSingleton<LevelManager>
             m_LevelTimer = 0;
         }
        
-        bullet.transform.position = Spawns[bulletData.SpawnIndex].transform.position;
+        
     }
 }

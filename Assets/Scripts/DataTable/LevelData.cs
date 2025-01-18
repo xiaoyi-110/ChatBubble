@@ -14,7 +14,7 @@ public class LevelData : ScriptableObject
 [Serializable]
 public class BulletData : IComparable<BulletData>
 {
-    public int Type;
+    public string PrefabName;
     public int SpawnIndex;
     public string Text;
     public float Speed=10f;
@@ -25,3 +25,4 @@ public class BulletData : IComparable<BulletData>
         return SpawnTime.CompareTo(other.SpawnTime);
     }
 }
+

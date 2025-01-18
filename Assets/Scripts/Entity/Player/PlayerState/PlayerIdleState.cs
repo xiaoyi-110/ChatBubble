@@ -10,6 +10,13 @@ public class PlayerIdleState : PlayerState
     {
         base.OnEnter(fsm);
         fsm.Data = typeof(PlayerIdleState);
+    
+    }
+
+    public override void OnLeave(FSM<Player> fsm)
+    {
+        base.OnLeave(fsm);
+        
     }
     public override void OnUpdate(FSM<Player> fsm)
     {

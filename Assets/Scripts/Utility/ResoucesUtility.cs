@@ -11,9 +11,10 @@ public static class ResoucesUtility
         return string.Format("Datas/DataTable/{0}", assetName);
     }
 
-    public static string GetBulletAsset(string assetName)
+
+    public static string GetPrefabAsset(string assetName)
     {
-        return string.Format("Prefabs/Entity/Bullet/{0}");
+        return string.Format("Prefabs/{0}", assetName);
     }
 
 }
