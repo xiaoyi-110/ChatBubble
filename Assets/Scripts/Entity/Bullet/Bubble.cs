@@ -26,6 +26,10 @@ public class Bubble : MonoBehaviour
         m_Collider.size = new Vector2(text.preferredWidth + box_offset, m_Collider.size.y);
     }
 
+    public void Init(BulletData data)
+    {
+        text.text = data.Text;
+    }
 
 
 }
