@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class LevelManager : MonoSingleton<LevelManager>
 {
+    
 
     public List<GameObject> Spawns;
     private LevelState m_LevelState;
     public LevelData m_LevelData;
     public Transform BulletRoot; 
+    public Player m_Player;
     private float m_LevelTimer;
     private int m_BulletIndex;
     
@@ -22,8 +24,8 @@ public class LevelManager : MonoSingleton<LevelManager>
     private void Start() {
 
         m_LevelState = LevelState.PlayerAovid;
-
         m_LevelData.bullets.Sort();
+        InitLevel();
 
     }
 
@@ -31,6 +33,11 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         m_LevelTimer = 0f;
         m_BulletIndex = 0;
+        m_Player = GameObject.Find("Player").GetComponent<Player>();
+        if(m_Player == null)
+        {
+            Debug.LogError("Player is null");
+        }
     }
 
     private void Update() {
@@ -72,5 +79,20 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
        
         
+    }
+
+    public void ReStartLevel()
+    {
+        InitLevel();
+        ClearBullet();
+    }
+
+    public void ClearBullet()
+    {
+        GameObject[] bullets = BulletRoot.GetComponentsInChildren<GameObject>();
+        for(int i = 0; i < bullets.Length; i++)
+        {
+            ObjectPool.Instance.RecycleObject(bullets[i]);
+        }
     }
 }

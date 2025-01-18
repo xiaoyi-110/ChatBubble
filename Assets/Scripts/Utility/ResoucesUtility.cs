@@ -16,5 +16,10 @@ public static class ResoucesUtility
     {
         return string.Format("Prefabs/{0}", assetName);
     }
+    
+    public static string GetAudioClipAsset(string assetName)
+    {
+        return string.Format("Audios/{0}", assetName);
+    }
 
 }

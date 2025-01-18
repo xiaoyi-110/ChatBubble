@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
     public int MaxHP = 3;
     public float UpDownSpeed = 10f;
     public float InvincibleTimeWindow = 1f;
-
-    
+    private Vector2 m_InitPosition;
 
     [Header("玩家当前状态")]
     public int CurrentHP;
@@ -48,21 +47,26 @@ public class Player : MonoBehaviour
 
    
 
-    private void Start()
+    private void Awake()
     {
         m_Animator = GetComponentInChildren<Animator>();
-        m_RD = GetComponentInChildren<Rigidbody2D>();
+        m_RD = GetComponentInChildren<Rigidbody2D>();   
+        m_InitPosition = transform.position;
+    }
 
-        
-        CreateFSM();
+    private void OnEnable()
+    {
         Init();
     }
 
+    // 初始化
     private void Init()
     {
         CurrentHP = MaxHP;
         InvincibleTimer = -1f;
         IsInvincible = false;
+        transform.position = m_InitPosition;
+        CreateFSM();
     }
 
     private void CreateFSM()

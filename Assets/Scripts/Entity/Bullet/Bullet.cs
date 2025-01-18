@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
     // 旋转的角度（每秒）
     public Vector3 rotationSpeed = new Vector3(0, 0, 720); // 旋转的角度（每秒）
 
+    private Sequence squence;
 
 
     private void Start() {
@@ -73,22 +74,27 @@ public class Bullet : MonoBehaviour
         yield return null;
 
         // DoTween的位置和旋转动画
-        transform.DOMove(targetPosition, duration)
-                 .SetEase(Ease.OutQuad) // 设置缓动类型为抛物线型退出
-                 .OnComplete(() => 
-                 {
-                     ObjectPool.Instance.RecycleObject(gameObject);
-                 });
+        squence = DOTween.Sequence();
+        squence.Append(
+            transform.DOMove(targetPosition, duration)
+                    .SetEase(Ease.OutQuad) // 设置缓动类型为抛物线型退出
+                    
+        );
 
         //使用DO Shake Rotation 或者直接设置旋转目标
-        transform.DORotate(rotationSpeed * duration, duration)
-                 .SetEase(Ease.Linear); // 线性旋转
+        squence.Join(
+            transform.DORotate(rotationSpeed * duration, duration)
+                    .SetEase(Ease.Linear).SetRelative().OnComplete(() => 
+                    {
+                        ObjectPool.Instance.RecycleObject(gameObject);
+                    })// 线性旋转
+        );
     }
 
 
 
     private void OnDisable() {
-        transform.DOKill();
+        squence.Kill();
     }
 
 }
