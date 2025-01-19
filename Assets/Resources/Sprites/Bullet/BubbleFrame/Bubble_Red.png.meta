@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4a827d1487408a44ba625ee24f4a8528
+guid: 65ea05b49982f324ab3da9b45e933549
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1840
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,22 +93,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bubble_Blue_Highlight_1_0
+      name: Bubble_Red_0
       rect:
         serializedVersion: 2
-        x: 878
-        y: 1333
-        width: 216
-        height: 215
+        x: 149
+        y: 560
+        width: 2459
+        height: 872
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 473, y: 183, z: 359, w: 144}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa1297a45a9d66b47a4285cd2c49ecf5
-      internalID: -1619057961
+      spriteID: 02394396a782c8e498dcc9b574ae5fa1
+      internalID: -2097583848
       vertices: []
       indices: 
       edges: []
@@ -124,7 +124,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bubble_Blue_Highlight_1_0: -1619057961
+      Bubble_Red_0: -2097583848
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

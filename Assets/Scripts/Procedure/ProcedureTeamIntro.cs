@@ -18,13 +18,13 @@ public class ProcedureTeamIntro : ProcedureBase
 
         ScenesManager.Instance.UnLoadAllScenes();
 
-        UIManager.Instance.OpenUIForm(Constant.UIFormData.TeamIntro, this);
+        //UIManager.Instance.OpenUIForm(Constant.UIFormData.TeamIntro, this);
     }
 
     public override void OnLeave(FSM<ProcedureManager> fsm)
     {
         base.OnLeave(fsm);
-        UIManager.Instance.CloseUIForm(Constant.UIFormData.TeamIntro, this);
+        //UIManager.Instance.CloseUIForm(Constant.UIFormData.TeamIntro, this);
     }
 
     public override void OnUpdate(FSM<ProcedureManager> fsm)

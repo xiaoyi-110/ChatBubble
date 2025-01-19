@@ -30,7 +30,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         else
         {
             AudioClip clip = Resources.Load<AudioClip>(ResoucesUtility.GetAudioClipAsset(name));
-            Debug.Log(clip);
+            //Debug.Log(clip);
             return clip;
         }
         

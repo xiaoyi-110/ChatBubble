@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
+        if(!LevelManager.Instance.m_IsStartGame) return;
         m_FSM.OnUpdate();
         
         InvincibleTimer -= Time.deltaTime;

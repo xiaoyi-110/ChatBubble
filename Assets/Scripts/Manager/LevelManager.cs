@@ -15,6 +15,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     private float m_LevelTimer;
     private int m_BulletIndex;
     
+    public bool m_IsStartGame;
     
     public enum LevelState{
         PlayerAttack,
@@ -26,7 +27,13 @@ public class LevelManager : MonoSingleton<LevelManager>
         m_LevelState = LevelState.PlayerAovid;
         m_LevelData.Sheet1.Sort();
         InitLevel();
+        m_IsStartGame = false;
 
+    }
+
+    public void StartGame()
+    {
+        m_IsStartGame = true;
     }
 
     public void InitLevel()
@@ -41,6 +48,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     }
 
     private void Update() {
+        if(!m_IsStartGame) return;
 
         m_LevelTimer += Time.deltaTime;
 
@@ -63,7 +71,16 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private void SpawnBullet(BulletData bulletData)
     {
-        GameObject bullet = ObjectPool.Instance.GetObject(bulletData.PrefabName);
+        GameObject bullet;
+        if(bulletData.IsAttackable == 1)
+        {
+            bullet = ObjectPool.Instance.GetObject(bulletData.PrefabName+"2");
+        }
+        else
+        {
+            bullet = ObjectPool.Instance.GetObject(bulletData.PrefabName);
+        }
+         
         bullet.transform.SetParent(BulletRoot);
         bullet.GetComponent<Bullet>().Init(bulletData);
         bullet.GetComponent<Bubble>()?.Init(bulletData);

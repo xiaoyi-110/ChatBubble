@@ -20,7 +20,7 @@ public class ProcedureMenu : ProcedureBase
 
         m_currentState = ProcedureMenuState.None;
 
-        UIManager.Instance.OpenUIForm(Constant.UIFormData.Menu, this);
+        //UIManager.Instance.OpenUIForm(Constant.UIFormData.Menu, this);
         
     }
 
@@ -28,7 +28,7 @@ public class ProcedureMenu : ProcedureBase
     {
         base.OnLeave(fsm);
 
-        UIManager.Instance.CloseUIForm(Constant.UIFormData.Menu, this);
+        //UIManager.Instance.CloseUIForm(Constant.UIFormData.Menu, this);
     }
 
     public override void OnUpdate(FSM<ProcedureManager> fsm)

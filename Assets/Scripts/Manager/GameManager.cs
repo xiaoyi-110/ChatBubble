@@ -6,6 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    public void Awake()
+    {
+
+    }
+
+
+    public void Start()
+    {
+        UIManager.Instance.ShowUIForm("MenuForm");
+    }
     /*public static GameManager S;
     private void Awake()
     {
