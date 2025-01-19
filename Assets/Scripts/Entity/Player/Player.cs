@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
     private void Update() {
         m_FSM.OnUpdate();
-        Attack();
+        
         InvincibleTimer -= Time.deltaTime;
     }
 
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Bullet") && !IsInvincible)
+        if (other.gameObject.CompareTag("Bullet") && !IsInvincible && !other.GetComponent<Bullet>().IsAttackable)
         {
             ChangeHP(-1);
         }

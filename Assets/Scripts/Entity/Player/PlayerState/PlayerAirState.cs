@@ -13,6 +13,7 @@ public class PlayerAirState : PlayerState
     {
         base.OnUpdate(fsm);
         if(m_HasChanged)return;
+        m_Player.Attack();
 
         if(!m_Player.isTryAir)
         {

@@ -23,6 +23,8 @@ public class PlayerIdleState : PlayerState
         base.OnUpdate(fsm);
         if(m_HasChanged)return;
 
+        m_Player.Attack();
+
         if(m_Player.isTryJump)
         {
             fsm.ChangeState<PlayerJumpState>();
