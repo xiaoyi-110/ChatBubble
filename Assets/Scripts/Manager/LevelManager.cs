@@ -147,6 +147,8 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public void LevelSuccess()
     {
+        UIManager.Instance.ShowUIForm("LevelSuccessForm");
+        m_IsStartGame = false;
         
     }
 

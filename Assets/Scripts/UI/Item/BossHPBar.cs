@@ -2,12 +2,13 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 public class BossHPBar : MonoBehaviour
 {
     public string BarName;
     public int MaxHP;
     public int HP;
-    public RectTransform HPValue;
+    public Image HPValue;
 
     private void Awake() {
         
@@ -43,7 +44,6 @@ public class BossHPBar : MonoBehaviour
         OnHPChangeEventArgs args = e as OnHPChangeEventArgs;
         if(args.target != BarName)return;
         int hp = args.HP;
-        Debug.Log(hp);
-        HPValue.sizeDelta = new Vector2((float)hp / MaxHP, HPValue.sizeDelta.y);
+        HPValue.fillAmount = (float)hp / MaxHP;
     }
 }

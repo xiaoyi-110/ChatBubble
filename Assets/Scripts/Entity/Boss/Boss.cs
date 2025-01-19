@@ -41,7 +41,6 @@ public class Boss : MonoBehaviour
         CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
         OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
         EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
-        Debug.Log(CurrentHP);
         if (CurrentHP <= 0)
         {
             LevelManager.Instance.LevelSuccess();
