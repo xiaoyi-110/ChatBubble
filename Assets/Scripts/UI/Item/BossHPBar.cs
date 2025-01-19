@@ -44,6 +44,6 @@ public class BossHPBar : MonoBehaviour
         if(args.target != BarName)return;
         int hp = args.HP;
         Debug.Log(hp);
-        //
+        HPValue.sizeDelta = new Vector2((float)hp / MaxHP, HPValue.sizeDelta.y);
     }
 }
