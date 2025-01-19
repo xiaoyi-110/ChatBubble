@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         m_Animator = GetComponentInChildren<Animator>();
         m_RD = GetComponentInChildren<Rigidbody2D>();   
         m_InitPosition = transform.position;
+        CreateFSM();
     }
 
     private void OnEnable()
@@ -60,13 +61,17 @@ public class Player : MonoBehaviour
     }
 
     // 初始化
-    private void Init()
+    public void Init()
     {
         CurrentHP = MaxHP;
         InvincibleTimer = -1f;
         IsInvincible = false;
         transform.position = m_InitPosition;
-        CreateFSM();
+
+        InitFsm();
+
+        OnPlayerHPChangeEventArgs args = OnPlayerHPChangeEventArgs.Create(CurrentHP);
+        EventManager.Instance.TriggerEvent(OnPlayerHPChangeEventArgs.EventId, this, args);
     }
 
     private void CreateFSM()
@@ -83,6 +88,11 @@ public class Player : MonoBehaviour
         
         m_FSM = new FSM<Player>(this ,fSMStates);
 
+        m_FSM.StartState<PlayerIdleState>();
+    }
+
+    private void InitFsm()
+    {
         m_FSM.StartState<PlayerIdleState>();
     }
 
@@ -104,7 +114,7 @@ public class Player : MonoBehaviour
         
         if (CurrentHP <= 0)
         {
-            //TODO: 游戏结束
+            LevelManager.Instance.LevelOver();
         }
     }
 

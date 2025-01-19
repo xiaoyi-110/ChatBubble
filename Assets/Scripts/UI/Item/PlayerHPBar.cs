@@ -12,7 +12,7 @@ public class PlayerHPBar : MonoBehaviour
     public List<GameObject> Bloods;
 
     private void Awake() {
-        Init(LevelManager.Instance.m_Player.MaxHP);
+        
     }
 
     void Start()
@@ -27,7 +27,7 @@ public class PlayerHPBar : MonoBehaviour
         }
 
         EventManager.Instance.RegisterEvent(OnPlayerHPChangeEventArgs.EventId, OnPlayerHpChange);
-
+        Init(LevelManager.Instance.m_Player.MaxHP);
     }
 
     public void Init(int hp)

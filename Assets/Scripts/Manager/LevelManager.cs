@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelManager : MonoSingleton<LevelManager>
 {
     
-
+    private bool m_IsTryPauseLevel => Input.GetKeyDown(KeyCode.Escape);
     public List<GameObject> Spawns;
     private LevelState m_LevelState;
     public LevelData_SO m_LevelData;
@@ -34,6 +34,24 @@ public class LevelManager : MonoSingleton<LevelManager>
     public void StartGame()
     {
         m_IsStartGame = true;
+        Time.timeScale = 1;
+    }
+
+    public void QuitGame()
+    {
+        m_IsStartGame = false;
+    }
+
+    public void RestartLevel()
+    {
+        InitLevel();
+        StartGame();
+    }
+
+    public void LevelOver()
+    {
+        UIManager.Instance.ShowUIForm("LevelOverForm");
+        Time.timeScale = 0;
     }
 
     public void InitLevel()
@@ -45,10 +63,18 @@ public class LevelManager : MonoSingleton<LevelManager>
         {
             Debug.LogError("Player is null");
         }
+        m_Player.Init();
+        
     }
 
     private void Update() {
         if(!m_IsStartGame) return;
+
+        if(m_IsTryPauseLevel)
+        {
+            PauseLevel();
+            return;
+        }
 
         m_LevelTimer += Time.deltaTime;
 
@@ -67,6 +93,17 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
 
         
+    }
+
+    public void PauseLevel()
+    {
+        UIManager.Instance.ShowUIForm("PauseMenuForm");
+        Time.timeScale = 0;
+    }
+
+    public void ResumeLevel()
+    {
+        Time.timeScale = 1;
     }
 
     private void SpawnBullet(BulletData bulletData)
@@ -102,14 +139,17 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         InitLevel();
         ClearBullet();
+        StartGame();
     }
 
     public void ClearBullet()
     {
-        GameObject[] levelDatas = BulletRoot.GetComponentsInChildren<GameObject>();
-        for(int i = 0; i < levelDatas.Length; i++)
+        // 获取BulletRoot下所有的子GameObject
+
+        foreach (Transform child in BulletRoot.transform)
         {
-            ObjectPool.Instance.RecycleObject(levelDatas[i]);
+            ObjectPool.Instance.RecycleObject(child.gameObject);
         }
     }
+       
 }

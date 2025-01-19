@@ -32,6 +32,7 @@ public class FSM<T>
             return;
         }
         
+        if(CurrentState != null) CurrentState.OnLeave(this);
         CurrentState = m_StatesDictionary[typeof(TState)];
         CurrentState.OnEnter(this);
         
