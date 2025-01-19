@@ -11,6 +11,10 @@ public class PlayerHPBar : MonoBehaviour
     public GameObject BloodPrefab;
     public List<GameObject> Bloods;
 
+    private void Awake() {
+        Init(LevelManager.Instance.m_Player.MaxHP);
+    }
+
     void Start()
     {
         if(HPLayout == null)
@@ -24,10 +28,7 @@ public class PlayerHPBar : MonoBehaviour
 
         EventManager.Instance.RegisterEvent(OnPlayerHPChangeEventArgs.EventId, OnPlayerHpChange);
 
-        
-        Init(3);
     }
-
 
     public void Init(int hp)
     {
@@ -39,9 +40,19 @@ public class PlayerHPBar : MonoBehaviour
             blood.name = "Blood" + i;
             Bloods.Add(blood);
             
-        }
-        
+        } 
+        show();
     }
+
+    public void show()
+    {
+        int hp = LevelManager.Instance.m_Player.CurrentHP;
+        for(int i=1;i<=MaxHP;i++)
+        {
+            Bloods[i-1].SetActive(i<=hp);
+        }
+    }
+    
     public void OnPlayerHpChange(object sender, EventArgs e)
     {
         OnPlayerHPChangeEventArgs args = e as OnPlayerHPChangeEventArgs;
