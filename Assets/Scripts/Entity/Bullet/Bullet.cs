@@ -54,6 +54,7 @@ public class Bullet : MonoBehaviour
     {
         if(!IsAttackable || IsBeHit) return;
 
+        LevelManager.Instance.m_Boss.ChangeHP(-1);
         ObjectPool.Instance.GetObject("BoomEffect", transform.position);
         IsBeHit = true;
         //随机化目标位置

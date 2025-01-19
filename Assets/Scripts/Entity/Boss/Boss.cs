@@ -4,10 +4,22 @@ using UnityEngine;
 using DG.Tweening;
 
 public class Boss : MonoBehaviour
-{
+{   
+
+    public int MaxHP=4;
+    public int CurrentHP;
     Sequence sequence;
+
+    public void Init()
+    {
+        CurrentHP = MaxHP;
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
+        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        //ShakeAnim();
+    }
+
     private void OnEnable() {
-        ShakeAnim();
+        Init();
     }
     // 摇晃动画
     public void ShakeAnim()
@@ -20,5 +32,19 @@ public class Boss : MonoBehaviour
 
     private void OnDisable() {
         sequence.Kill();
+    }
+
+    public void ChangeHP(int value=-1)
+    {
+        if(value==0)return;
+        
+        CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
+        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        Debug.Log(CurrentHP);
+        if (CurrentHP <= 0)
+        {
+            LevelManager.Instance.LevelSuccess();
+        }
     }
 }

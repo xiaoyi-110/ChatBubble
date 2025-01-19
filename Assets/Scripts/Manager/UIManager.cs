@@ -1,13 +1,17 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 public class UIManager : MonoSingleton<UIManager>
 {
     public List<GameObject> UIFormList;
+
     
     private void Awake() {
         
+    }
+
+    private void Start()
+    {
+
     }
 
     public void ShowUIForm(string name)

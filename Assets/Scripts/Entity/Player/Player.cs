@@ -70,8 +70,8 @@ public class Player : MonoBehaviour
 
         InitFsm();
 
-        OnPlayerHPChangeEventArgs args = OnPlayerHPChangeEventArgs.Create(CurrentHP);
-        EventManager.Instance.TriggerEvent(OnPlayerHPChangeEventArgs.EventId, this, args);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "PlayerHPBar");
+        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
     }
 
     private void CreateFSM()
@@ -109,8 +109,8 @@ public class Player : MonoBehaviour
         if(value<0) InvincibleTimer = InvincibleTimeWindow;
         
         CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
-        OnPlayerHPChangeEventArgs args = OnPlayerHPChangeEventArgs.Create(CurrentHP);
-        EventManager.Instance.TriggerEvent(OnPlayerHPChangeEventArgs.EventId, this, args);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "PlayerHPBar");
+        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
         
         if (CurrentHP <= 0)
         {

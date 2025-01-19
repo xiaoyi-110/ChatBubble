@@ -15,29 +15,911 @@ MonoBehaviour:
   Sheet1:
   - ID: 0
     PrefabName: BubbleBullet
-    IsAttackable: 1
-    SpawnIndex: 1
-    Text: "\u4F60\u597D\u4F60\u597D"
-    Speed: 10
-    Time: 1
-  - ID: 1
-    PrefabName: BubbleBullet
     IsAttackable: 0
-    SpawnIndex: 0
-    Text: HelloHello
+    SpawnIndex: 1
+    Text: "\u4F60\u5199\u7684\u7B56\u5212\u6848\u6709\u903B\u8F91\u5417\uFF1F"
     Speed: 10
     Time: 3
+  - ID: 1
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: SB
+    Speed: 10.1
+    Time: 4
   - ID: 2
-    PrefabName: EmojiBullet
+    PrefabName: BubbleBullet
     IsAttackable: 1
     SpawnIndex: 1
-    Text: 1
-    Speed: 10
+    Text: "\u72D7\u7B56\u5212"
+    Speed: 10.2
     Time: 5
   - ID: 3
     PrefabName: EmojiBullet
     IsAttackable: 1
     SpawnIndex: 0
-    Text: 321
-    Speed: 10
+    Text: 
+    Speed: 10.3
+    Time: 6
+  - ID: 4
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 10.4
     Time: 7
+  - ID: 5
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 10.5
+    Time: 8.4
+  - ID: 6
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 10.6
+    Time: 8.6
+  - ID: 7
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 10.7
+    Time: 8.8
+  - ID: 8
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 10.8
+    Time: 11
+  - ID: 9
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 10.9
+    Time: 12
+  - ID: 10
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 11
+    Time: 13
+  - ID: 11
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 11.1
+    Time: 14
+  - ID: 12
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 11.2
+    Time: 15
+  - ID: 13
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 11.3
+    Time: 16
+  - ID: 14
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u6BEB\u65E0\u7AE0\u6CD5"
+    Speed: 11.4
+    Time: 17
+  - ID: 15
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 11.5
+    Time: 18
+  - ID: 16
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u8FD9\u79CD\u9700\u6C42\u662F\u4E00\u4E2A\u6B63\u5E38\u4EBA\u80FD\u5199\u51FA\u6765\u7684\uFF1F"
+    Speed: 11.6
+    Time: 19
+  - ID: 17
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 11.7
+    Time: 20
+  - ID: 18
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 11.8
+    Time: 21
+  - ID: 19
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u65E0\u8BED"
+    Speed: 11.9
+    Time: 22
+  - ID: 20
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u4ECE\u5934\u5230\u5C3E\u4E00\u56E2\u6D46\u7CCA\uFF0C\u8FDE\u57FA\u672C\u7684\u6267\u884C\u6B65\u9AA4\u90FD\u6CA1\u6807\u6E05\u695A\uFF0C\u96BE\u9053\u9760\u6211\u731C\uFF1F"
+    Speed: 12
+    Time: 23
+  - ID: 21
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 12.1
+    Time: 24
+  - ID: 22
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 12.2
+    Time: 25
+  - ID: 23
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 12.3
+    Time: 26
+  - ID: 24
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 12.4
+    Time: 27
+  - ID: 25
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u4F60\u5C31\u662F\u4E2A\u8111\u6B8B!"
+    Speed: 12.5
+    Time: 28
+  - ID: 26
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4F60\u5199\u7684\u4E1C\u897F\u6211\u4ECE\u6765\u90FD\u6CA1\u770B\u61C2\u8FC7\uFF01"
+    Speed: 12.6
+    Time: 29
+  - ID: 27
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 12.7
+    Time: 30
+  - ID: 28
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 12.8
+    Time: 31
+  - ID: 29
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 12.9
+    Time: 32
+  - ID: 30
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 13
+    Time: 33
+  - ID: 31
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 13.1
+    Time: 34
+  - ID: 32
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 13.2
+    Time: 35
+  - ID: 33
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4F60\u80FD\u4E0D\u80FD\u5148\u95EE\u95EE\u6280\u672F\u80FD\u4E0D\u80FD\u505A"
+    Speed: 13.3
+    Time: 36
+  - ID: 34
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 13.4
+    Time: 37
+  - ID: 35
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 13.5
+    Time: 38
+  - ID: 36
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 13.6
+    Time: 39
+  - ID: 37
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 13.7
+    Time: 40
+  - ID: 38
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 13.8
+    Time: 41
+  - ID: 39
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 13.9
+    Time: 42
+  - ID: 40
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 14
+    Time: 43
+  - ID: 41
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 14.1
+    Time: 44
+  - ID: 42
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 14.2
+    Time: 45
+  - ID: 43
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 14.3
+    Time: 46
+  - ID: 44
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 14.4
+    Time: 47
+  - ID: 45
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 14.5
+    Time: 48
+  - ID: 46
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 14.6
+    Time: 49
+  - ID: 47
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 14.7
+    Time: 50
+  - ID: 48
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 14.8
+    Time: 51
+  - ID: 49
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u771F\u5F53\u81EA\u5DF1\u5728\u5806\u79EF\u6728\u5462\uFF1F"
+    Speed: 14.9
+    Time: 52
+  - ID: 50
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u63D0\u9700\u6C42\u4E4B\u524D\u5148\u67E5\u67E5\u8D44\u6599\u5427\uFF01"
+    Speed: 15
+    Time: 53
+  - ID: 51
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 15.1
+    Time: 54
+  - ID: 52
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u9700\u6C42\u5199\u7684\u5929\u82B1\u4E71\u5760\uFF01"
+    Speed: 15.2
+    Time: 55
+  - ID: 53
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 15.3
+    Time: 56
+  - ID: 54
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u4F60\u5F53\u7A0B\u5E8F\u662F\u4E07\u80FD\u7684\u5417\uFF1F"
+    Speed: 15.4
+    Time: 57
+  - ID: 55
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 15.5
+    Time: 58
+  - ID: 56
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 15.6
+    Time: 59
+  - ID: 57
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 15.7
+    Time: 60
+  - ID: 58
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 15.8
+    Time: 61
+  - ID: 59
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 15.9
+    Time: 62
+  - ID: 60
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 16
+    Time: 63
+  - ID: 61
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 16.1
+    Time: 64
+  - ID: 62
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u8FD9\u9700\u6C42\u6839\u672C\u6CA1\u6CD5\u5B9E\u73B0\uFF0C\u6211\u53C8\u4E0D\u662F\u9B54\u672F\u5E08\uFF01"
+    Speed: 16.2
+    Time: 65
+  - ID: 63
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 16.3
+    Time: 66
+  - ID: 64
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u522B\u518D\u8BA9\u6211\u5B9E\u73B0\u8FD9\u79CD\u5929\u4E66\u4E00\u6837\u7684\u4E1C\u897F\u4E86\uFF01"
+    Speed: 16.4
+    Time: 67
+  - ID: 65
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u6211\u771F\u662F\u670D\u4E86"
+    Speed: 16.5
+    Time: 68
+  - ID: 66
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 16.6
+    Time: 69
+  - ID: 67
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u4F60\u80FD\u4E0D\u80FD\u4E00\u6B21\u628A\u9700\u6C42\u5B9A\u4E2A\u51C6\uFF1F"
+    Speed: 16.7
+    Time: 70
+  - ID: 68
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4E00\u5929\u6539\u4E09\u6B21\u9700\u6C42\uFF0C\u641E\u5F97\u6211\u90FD\u4E0D\u77E5\u9053\u600E\u4E48\u529E\u4E86\uFF01"
+    Speed: 14
+    Time: 71
+  - ID: 69
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 16.9
+    Time: 72
+  - ID: 70
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 17
+    Time: 73
+  - ID: 71
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u771F\u5F53\u6211\u662F\u4E07\u80FD\u7684\u554A\uFF1F"
+    Speed: 17.1
+    Time: 74
+  - ID: 72
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 17.2
+    Time: 75
+  - ID: 73
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 17.3
+    Time: 76
+  - ID: 74
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 17.4
+    Time: 77
+  - ID: 75
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 17.5
+    Time: 78
+  - ID: 76
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 17.6
+    Time: 79
+  - ID: 77
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u7B56\u5212\u6848\u662F\u6B7B\u7684\uFF1F"
+    Speed: 17.7
+    Time: 80
+  - ID: 78
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 17.8
+    Time: 81
+  - ID: 79
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 17.9
+    Time: 82
+  - ID: 80
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 18
+    Time: 83
+  - ID: 81
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 18.1
+    Time: 84
+  - ID: 82
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 18.2
+    Time: 85
+  - ID: 83
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u8FD9\u4E5F\u592A\u75AF\u72C2\u4E86"
+    Speed: 18.3
+    Time: 86
+  - ID: 84
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 18.4
+    Time: 87
+  - ID: 85
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 18.5
+    Time: 88
+  - ID: 86
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 18.6
+    Time: 89
+  - ID: 87
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 18.7
+    Time: 90
+  - ID: 88
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: SB
+    Speed: 18.8
+    Time: 91
+  - ID: 89
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u8FD9\u8BA9\u6211\u600E\u4E48\u8DDF\u5F97\u4E0A\uFF1F"
+    Speed: 14
+    Time: 92
+  - ID: 90
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u771F\u662F\u6BCF\u5929\u90FD\u5F97\u9762\u5BF9\u2018\u65B0\u9700\u6C42\u2019\uFF01"
+    Speed: 19
+    Time: 93
+  - ID: 91
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u8001\u5B50\u4E0D\u662F\u9884\u8A00\u5BB6\uFF01"
+    Speed: 19.1
+    Time: 94
+  - ID: 92
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 19.2
+    Time: 95
+  - ID: 93
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 19.3
+    Time: 96
+  - ID: 94
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 19.4
+    Time: 97
+  - ID: 95
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u4F60\u5230\u5E95\u61C2\u4E0D\u61C2\u7F8E\u672F"
+    Speed: 19.5
+    Time: 98
+  - ID: 96
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 19.6
+    Time: 99
+  - ID: 97
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 19.7
+    Time: 100
+  - ID: 98
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 19.8
+    Time: 101
+  - ID: 99
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 19.9
+    Time: 102
+  - ID: 100
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 20
+    Time: 103
+  - ID: 101
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 20.1
+    Time: 104
+  - ID: 102
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4E0D\u61C2\u6280\u672F\u80FD\u4E0D\u80FD\u5C11\u8BF4\u8BDD"
+    Speed: 20.2
+    Time: 105
+  - ID: 103
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 20.3
+    Time: 106
+  - ID: 104
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 20.4
+    Time: 107
+  - ID: 105
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 20.5
+    Time: 108
+  - ID: 106
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 20.6
+    Time: 109
+  - ID: 107
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u4E00\u53E5\u201C\u8FD9\u4E2A\u5F88\u7B80\u5355\u201D\u542C\u5F97\u6211\u60F3\u8F9E\u804C"
+    Speed: 20.7
+    Time: 110
+  - ID: 108
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4F60\u628A\u7B56\u5212\u6848\u5199\u660E\u767D\u5C31\u662F\u5BF9\u6211\u4EEC\u6700\u5927\u7684\u5E2E\u52A9\uFF01"
+    Speed: 20.8
+    Time: 111
+  - ID: 109
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 20.9
+    Time: 112
+  - ID: 110
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 21
+    Time: 113
+  - ID: 111
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 21.1
+    Time: 114
+  - ID: 112
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 21.2
+    Time: 115
+  - ID: 113
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 21.3
+    Time: 116
+  - ID: 114
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 21.4
+    Time: 117
+  - ID: 115
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: "\u866B\u8C78"
+    Speed: 21.5
+    Time: 118
+  - ID: 116
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 21.6
+    Time: 119
+  - ID: 117
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u522B\u603B\u60F3\u7740\u6307\u5BFC\u7A0B\u5E8F\u5DE5\u4F5C\u4E86\uFF0C"
+    Speed: 21.7
+    Time: 120
+  - ID: 118
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u866B\u8C78"
+    Speed: 21.8
+    Time: 121
+  - ID: 119
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 21.9
+    Time: 122
+  - ID: 120
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 1
+    Text: "\u4F60\u5199\u7B56\u5212\u6848\u7684\u65F6\u5019\u8003\u8651\u8FC7\u5B9E\u73B0\u6210\u672C\u5417\uFF1F"
+    Speed: 22
+    Time: 123
+  - ID: 121
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 22.1
+    Time: 124
+  - ID: 122
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u4F60\u662F\u4E0D\u662F\u4EE5\u4E3A\u4EE3\u7801\u662F\u81EA\u52A8\u751F\u6210\u7684\uFF1F"
+    Speed: 22.2
+    Time: 125
+  - ID: 123
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 22.3
+    Time: 126
+  - ID: 124
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: 
+    Speed: 22.4
+    Time: 127
+  - ID: 125
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u9884\u7B97\u8FD8\u80FD\u780D\u4E00\u534A\uFF1F "
+    Speed: 22.5
+    Time: 128
+  - ID: 126
+    PrefabName: BubbleBullet
+    IsAttackable: 1
+    SpawnIndex: 1
+    Text: "\u8FD9\u79CD\u9700\u6C42\u5199\u51FA\u6765\u4E0D\u89C9\u5F97\u7F9E\u803B\u5417\uFF1F"
+    Speed: 22.6
+    Time: 129
+  - ID: 127
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 22.7
+    Time: 130
+  - ID: 128
+    PrefabName: EmojiBullet
+    IsAttackable: 1
+    SpawnIndex: 0
+    Text: 
+    Speed: 22.8
+    Time: 131
+  - ID: 129
+    PrefabName: BubbleBullet
+    IsAttackable: 0
+    SpawnIndex: 0
+    Text: "\u4E00\u4E2A\u6708\u7684\u6D3B\u4F60\u60F3\u8BA9\u6211\u4E00\u5929\u505A\u5B8C\uFF0C"
+    Speed: 22.9
+    Time: 132

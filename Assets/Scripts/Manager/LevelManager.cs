@@ -12,6 +12,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     public LevelData_SO m_LevelData;
     public Transform BulletRoot; 
     public Player m_Player;
+    public Boss m_Boss;
     private float m_LevelTimer;
     private int m_BulletIndex;
     
@@ -59,11 +60,13 @@ public class LevelManager : MonoSingleton<LevelManager>
         m_LevelTimer = 0f;
         m_BulletIndex = 0;
         m_Player = GameObject.Find("Player").GetComponent<Player>();
+        m_Boss = GameObject.Find("Boss").GetComponent<Boss>();
         if(m_Player == null)
         {
             Debug.LogError("Player is null");
         }
         m_Player.Init();
+        m_Boss.Init();
         
     }
 
@@ -140,6 +143,11 @@ public class LevelManager : MonoSingleton<LevelManager>
         InitLevel();
         ClearBullet();
         StartGame();
+    }
+
+    public void LevelSuccess()
+    {
+        
     }
 
     public void ClearBullet()
