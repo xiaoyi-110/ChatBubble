@@ -9,7 +9,8 @@ public class Boss : MonoBehaviour
     public int MaxHP=4;
     public int CurrentHP;
     Sequence sequence;
-
+    [SerializeField] private AudioSource bossDieSound;
+    [SerializeField] private AudioSource bossAttackedSound;
     public void Init()
     {
         CurrentHP = MaxHP;
@@ -37,12 +38,14 @@ public class Boss : MonoBehaviour
     public void ChangeHP(int value=-1)
     {
         if(value==0)return;
-        
+
+        bossAttackedSound.Play();
         CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
         OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
         EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
         if (CurrentHP <= 0)
         {
+            bossDieSound.Play();
             LevelManager.Instance.LevelSuccess();
         }
     }

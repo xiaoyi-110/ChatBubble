@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class AudioManager : MonoSingleton<AudioManager>
 {
-
+    //public static AudioManager Instance;
     Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
     [SerializeField] private AudioSource m_IsPlayingBGM;
+    //[SerializeField] public AudioSource sceneChangeSound;
+
 
     // [SerializeField][Range(-80f, 20f)] private float m_MasterVolume = -10f;
     // [SerializeField][Range(-80f, 20f)] private float m_BGMVolume = -10f;
     // [SerializeField][Range(-80f, 20f)] private float m_EffectVolume = -10f;
 
     private void Awake() {
-        
+        //Instance = this;
     }
     private void Start() {
         m_IsPlayingBGM = GetComponent<AudioSource>();
@@ -57,4 +59,24 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         AudioSource.PlayClipAtPoint(GetAudioClip(name), Camera.main.transform.position);
     }
+
+    public void StopBGM()
+    {
+        if (m_IsPlayingBGM != null)
+        {
+            m_IsPlayingBGM.Stop();
+        }
+    }
+
+    /*public void PlaySceneChangeSound()
+    {
+        if (sceneChangeSound != null)
+        {
+            sceneChangeSound.Play();
+        }
+        else
+        {
+            Debug.LogError("Scene change sound not assigned in AudioManager!");
+        }
+    }*/
 }

@@ -4,7 +4,6 @@ public class UIManager : MonoSingleton<UIManager>
 {
     public List<GameObject> UIFormList;
 
-    
     private void Awake() {
         
     }

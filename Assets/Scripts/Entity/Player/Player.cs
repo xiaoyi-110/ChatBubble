@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
 
     public Animator m_Animator;
     public Rigidbody2D m_RD;
+    [SerializeField] private AudioSource playerDieSound;
+    [SerializeField] private AudioSource playerAttackedSound;
 
     [Header("碰撞检测")]
     public LayerMask GroundLayer;
@@ -39,12 +42,10 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Control
-    public bool isTryJump => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
-    public bool isTryAir => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+    public bool isTryJump => Input.GetKeyDown(KeyCode.Space);
+    public bool isTryAir => Input.GetKey(KeyCode.Space);
     public bool isTryAttack => Input.GetKeyDown(KeyCode.Space);
     #endregion
-    
-
    
 
     private void Awake()
@@ -99,13 +100,12 @@ public class Player : MonoBehaviour
     private void Update() {
         if(!LevelManager.Instance.m_IsStartGame) return;
         m_FSM.OnUpdate();
-        
         InvincibleTimer -= Time.deltaTime;
     }
 
     public void ChangeHP(int value=-1)
     {
-        if(InvincibleTimer>=0 || value==0)return;
+        if (InvincibleTimer>=0 || value==0)return;
         if(value<0) InvincibleTimer = InvincibleTimeWindow;
         
         CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
@@ -114,9 +114,12 @@ public class Player : MonoBehaviour
         
         if (CurrentHP <= 0)
         {
+            playerDieSound.Play();
             LevelManager.Instance.LevelOver();
         }
     }
+
+    
 
     public void Attack()
     {
@@ -145,6 +148,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet") && !IsInvincible && !other.GetComponent<Bullet>().IsAttackable)
         {
             ChangeHP(-1);
+            playerAttackedSound.Play();
         }
     }
        

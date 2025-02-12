@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class ArrowManager : MonoBehaviour
+public class ArrowManager : MonoSingleton<ArrowManager>
 {
-    /*public static ArrowManager S;
+    public static ArrowManager S;
+    [SerializeField] private AudioSource victorySound;
+    [SerializeField] private AudioSource missSound;
+
     private void Awake()
     {
         S = this;
@@ -14,70 +18,82 @@ public class ArrowManager : MonoBehaviour
     public Transform arrowsHolder;
     public static bool isFinish;
 
-    List<Arrow> arrows = new List<Arrow>(); // Use a list to keep the order and access by index
-    private int currentArrowIndex; // Track the current arrow index
+    Queue<Arrow> arrows = new Queue<Arrow>();
+    Arrow currentArrow;
 
-    private float inputStartTime; // Start time for the input timer
-    private const float inputTimeLimit = 9.0f; // Time limit in seconds
+    public float waveTime = 9f;  // 每一轮的倒计时（秒）
 
-    public void CreateWave(int level)
+    private void Start()
     {
-        arrows.Clear();
-        isFinish = false;
-        currentArrowIndex = 0; // Reset the index when creating a new wave
-        inputStartTime = Time.time; // Reset the timer when starting a new wave
+        // 可以根据需要自动开始游戏或者由其他条件触发
+    }
 
-        for (int i = 0; i < 9; i++) // Always create 9 arrows per wave
+    // 创建箭头波，改为每次生成9个箭头
+    public void CreateWave(int length)
+    {
+        Debug.Log($"正在生成箭头，剩余次数: {length}");
+        arrows = new Queue<Arrow>();
+        isFinish = false;
+
+        for (int i = 0; i < length; i++)
         {
-            Arrow arrow = Instantiate(arrowPrefab, arrowsHolder).GetComponent<Arrow>();
-            int randomDir = Random.Range(0, 4);
+            Arrow arrow = Instantiate(
+            arrowPrefab,
+            arrowsHolder.position, // 使用父物体位置
+            Quaternion.identity,
+            arrowsHolder)
+            .GetComponent<Arrow>();
+
+            arrow.transform.localPosition += new Vector3(i * 100, 0, 0);
+            int randomDir = Random.Range(0, 4);  // 随机生成箭头方向
             arrow.Setup(randomDir);
 
-            arrows.Add(arrow); // Add the arrow to the list instead of queue
+            arrows.Enqueue(arrow);
         }
+
+        currentArrow = arrows.Dequeue();  // 获取第一个箭头
     }
 
+    // 处理玩家输入
     public void TypeArrow(KeyCode inputKey)
     {
-        // Check if the player has exceeded the time limit
-        if (Time.time - inputStartTime > inputTimeLimit || isFinish)
-        {
-            GameManager.S.FailWave(); // Input time expired or already finished
+        if (isFinish)
             return;
+        if (ConvertKeyCodeToInt(inputKey) == currentArrow.arrowDir)
+        {
+            currentArrow.SetFinish();  // 输入正确，设置为完成状态
+            victorySound.Play();
+            LevelManager.S.RecordInput(true);  // 记录正确输入
+        }
+        else
+        {
+            currentArrow.SetError();  // 输入错误，显示错误颜色
+            missSound.Play();
+            LevelManager.S.RecordInput(false);  // 记录错误输入
         }
 
-        if (currentArrowIndex < arrows.Count && currentArrowIndex >= 0)
+        // 继续到下一个箭头
+        if (arrows.Count > 0)
         {
-            Arrow currentArrow = arrows[currentArrowIndex];
-            if (ConvertKeyCodeToInt(inputKey) == currentArrow.arrowDir)
-            {
-                currentArrow.SetFinish(); // Change the arrow color
-                currentArrowIndex++; // Move to the next arrow
-
-                if (currentArrowIndex >= arrows.Count)
-                {
-                    isFinish = true;
-                    HandleWaveCompletion();
-                }
-            }
-            else
-            {
-                GameManager.S.FailWave(); // Incorrect input, call FailWave
-            }
+            currentArrow = arrows.Dequeue();  // 继续下一个箭头
+        }
+        else
+        {
+            isFinish = true;  // 如果所有箭头都输入完，标记关卡完成
         }
     }
 
+    // 清空箭头波
     public void ClearWave()
     {
+        arrows = new Queue<Arrow>();
         foreach (Transform arrow in arrowsHolder)
         {
             Destroy(arrow.gameObject);
         }
-        arrows.Clear();
-        currentArrowIndex = 0; // Reset the index after clearing the wave
-        isFinish = false; // Reset finish flag
     }
 
+    // 将键盘输入转换为箭头方向（0-3）
     int ConvertKeyCodeToInt(KeyCode key)
     {
         int result = 0;
@@ -98,11 +114,4 @@ public class ArrowManager : MonoBehaviour
         }
         return result;
     }
-
-    private void HandleWaveCompletion()
-    {
-        Debug.Log("所有箭头都处理完毕");
-        // Do not clear arrows immediately, instead wait for player confirmation or after a certain time
-        Invoke("ClearWave", 3); // For example, wait 3 seconds before clearing
-    }*/
 }
