@@ -1,8 +1,2 @@
-# GGJ2025-Demo
-
-# 日志
-- 2025.1.9 重构代码, 添加GameFramework框架
-# 编辑器版本
-2021.3.44f1c1
-~~2021.3.27f1c2~~
-
+# ChatBubble
+A simple demo of a 2D side-scrolling bullet hell shooter combined with QQXuanwu elements
