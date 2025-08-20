@@ -1,6 +1,3 @@
-using System;
-using JetBrains.Annotations;
-
 public class ProcedureMenu : ProcedureBase
 {
 
@@ -19,9 +16,10 @@ public class ProcedureMenu : ProcedureBase
         base.OnEnter(fsm);
 
         m_currentState = ProcedureMenuState.None;
-
-        //UIManager.Instance.OpenUIForm(Constant.UIFormData.Menu, this);
-        
+        LevelManager.Instance.QuitGame();
+        AudioManager.Instance.Stop("BGM_Victory");
+        AudioManager.Instance.Play("BGM_Main");
+        UIManager.Instance.ShowUIForm("MenuForm");
     }
 
     public override void OnLeave(FSM<ProcedureManager> fsm)

@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 
 public class ProcedureManager : MonoSingleton<ProcedureManager>
@@ -29,5 +27,10 @@ public class ProcedureManager : MonoSingleton<ProcedureManager>
         m_FSM = FSM<ProcedureManager>.Create(this, m_StateList);
 
         m_FSM.StartState<ProcedureLaunch>();
+    }
+
+    public void GoToMainMenu()
+    {        
+        m_FSM.ChangeState<ProcedureMenu>();
     }
 }

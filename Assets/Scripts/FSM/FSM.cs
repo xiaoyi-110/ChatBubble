@@ -40,8 +40,7 @@ public class FSM<T>
 
     public void ChangeState<TState>() where TState : FSMState<T>
     {
-        
-
+       
         if (!m_StatesDictionary.ContainsKey(typeof(TState)))
         {
             Debug.LogError("State not found");

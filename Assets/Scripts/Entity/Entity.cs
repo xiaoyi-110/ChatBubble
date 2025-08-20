@@ -15,7 +15,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected LayerMask m_GroundLayer;
 
     public Rigidbody2D Rb {get; private set;}
-    public Animator Animator { get; private set;}
+    public Animator Animator;
     public int FacingDirection = 1;//1为右，-1为左
 
     private bool m_IsPause = false;
@@ -57,12 +57,14 @@ public class Entity : MonoBehaviour
         FlipController(Rb.velocity.x);  
     }
 
-    
 
-    public void SetVelocity(float _xVelocity, float _yVelocity)    
+
+    public void SetVelocity(float xVelocity, float? yVelocity = null)
     {
-        Rb.velocity = new Vector2(_xVelocity, _yVelocity);
+        float newY = yVelocity ?? Rb.velocity.y; 
+        Rb.velocity = new Vector2(xVelocity, newY);
     }
+
 
 
     /// <summary>
@@ -93,7 +95,7 @@ public class Entity : MonoBehaviour
         {
             Gizmos.DrawLine(check.position, new Vector3(check.position.x, check.position.y - m_CheckGroundDistance));
         }
-        Gizmos.DrawLine(m_WallCheck.position, new Vector3(m_WallCheck.position.x + m_CheckWallDistance * FacingDirection, m_WallCheck.position.y));
+        //Gizmos.DrawLine(m_WallCheck.position, new Vector3(m_WallCheck.position.x + m_CheckWallDistance * FacingDirection, m_WallCheck.position.y));
     }
 
     public void OnLevelPauseChange(object sender, EventArgs e)

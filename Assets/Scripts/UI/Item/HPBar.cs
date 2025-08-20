@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HPBar : MonoBehaviour
 {
-    public string BarName;
+    public EntityType BarName;
     public int MaxHP;
     public int HP;
     public GameObject HPLayout;
@@ -28,74 +28,48 @@ public class HPBar : MonoBehaviour
         }
 
         EventManager.Instance.RegisterEvent(OnHPChangeEventArgs.EventId, OnHpChange);
-        
-        if(name == "PlayerHPBar")
-        {
-            Init(LevelManager.Instance.m_Player.MaxHP);
-        }
-        else 
-        {
-            Init(LevelManager.Instance.m_Boss.MaxHP);
-        }
-        
+
+        int initialHP = BarName == EntityType.Player
+                        ? LevelManager.Instance.Player.MaxHP
+                        : LevelManager.Instance.Boss.MaxHP;
+        Init(initialHP);
     }
 
     public void Init(int hp)
     {
         MaxHP = HP = hp;
         Bloods.Clear();
-        for(int i=1;i<=MaxHP;i++)
+
+        for (int i = 0; i < MaxHP; i++)
         {
             GameObject blood = Instantiate(BloodPrefab, HPLayout.transform);
-            blood.name = "Blood" + i;
+            blood.name = "Blood" + (i + 1);
             Bloods.Add(blood);
-            
-        } 
-        show();
+        }
+
+        UpdateUI();
     }
 
-    public void show()
+    public void UpdateUI()
     {
-        int hp ;
+        int currentHP = BarName == EntityType.Player
+                        ? LevelManager.Instance.Player.CurrentHP
+                        : LevelManager.Instance.Boss.CurrentHP;
 
-        if(name == "PlayerHPBar")
+        for (int i = 0; i < MaxHP; i++)
         {
-            hp = LevelManager.Instance.m_Player.CurrentHP;
-        }
-        else
-        {
-            hp = LevelManager.Instance.m_Boss.CurrentHP;
-            Debug.Log(hp);
-        }
-
-        for(int i=1;i<=MaxHP;i++)
-        {
-            Bloods[i-1].SetActive(i<=hp);
+            if (Bloods[i] != null)
+                Bloods[i].SetActive(i < currentHP);
         }
     }
-    
+
     public void OnHpChange(object sender, EventArgs e)
     {
         OnHPChangeEventArgs args = e as OnHPChangeEventArgs;
-        if(args.target != BarName)return;
-        int hp = args.HP;
-        
+        if (args == null || args.target != BarName) return;
 
-        Debug.Log(args.target + " HP Change " + hp);
-
-        if(HP != hp)
-        {
-            HP = hp;
-
-            for(int i = 1;i<=MaxHP;i++)
-            {
-                if(Bloods[i-1] == null)continue;
-                
-                Bloods[i-1].SetActive(i<=HP);
-            }
-
-        }
+        HP = args.HP;
+        UpdateUI();
     }
-
 
 }

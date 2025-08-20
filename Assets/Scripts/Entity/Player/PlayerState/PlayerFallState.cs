@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class PlayerFallState : PlayerState
@@ -10,21 +9,21 @@ public class PlayerFallState : PlayerState
     public override void OnEnter(FSM<Player> fsm)
     {
         base.OnEnter(fsm);
-        m_Player.IsInvincible = true;
+        player.SetInvincible(true);
     }
 
     public override void OnLeave(FSM<Player> fsm)
     {
         base.OnLeave(fsm);
-        m_Player.IsInvincible = false;
+        player.SetInvincible(false);
     }
 
     public override void OnUpdate(FSM<Player> fsm)
     {
         base.OnUpdate(fsm);
-        m_Player.transform.position = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y - m_Player.UpDownSpeed * Time.deltaTime, m_Player.transform.position.z);
+        player.transform.position += new Vector3(0, -player.FloatDownSpeed * Time.deltaTime, 0);
 
-        if(m_Player.IsGrounded)
+        if (player.IsGrounded)
         {
             ChangeState<PlayerIdleState>(fsm);
         }

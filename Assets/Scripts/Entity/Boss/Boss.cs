@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Boss : MonoBehaviour
+public class Boss : Entity
 {   
-
     public int MaxHP=4;
     public int CurrentHP;
     Sequence sequence;
-    [SerializeField] private AudioSource bossDieSound;
-    [SerializeField] private AudioSource bossAttackedSound;
+    protected override void Awake()
+    {
+        base.Awake();
+        EntityRegistry.Register(EntityType.Boss, this);
+    }
     public void Init()
     {
         CurrentHP = MaxHP;
-        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
-        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, EntityType.Boss);
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        }
+
         //ShakeAnim();
     }
 
     private void OnEnable() {
-        Init();
+        ShakeAnim();
     }
     // 摇晃动画
     public void ShakeAnim()
@@ -39,13 +45,13 @@ public class Boss : MonoBehaviour
     {
         if(value==0)return;
 
-        bossAttackedSound.Play();
-        CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
-        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "BossHPBar");
+        AudioManager.Instance.Play("hitBoss");
+        CurrentHP = Mathf.Clamp(CurrentHP + value, 0, MaxHP);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, EntityType.Boss);
         EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
         if (CurrentHP <= 0)
         {
-            bossDieSound.Play();
+            AudioManager.Instance.Play("bossDie");
             LevelManager.Instance.LevelSuccess();
         }
     }

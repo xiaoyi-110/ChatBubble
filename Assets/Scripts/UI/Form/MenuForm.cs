@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class MenuForm : UIForm
 {
-   
-
-
     public void OnStartButtonClick()
     {
         UIManager.Instance.ShowUIForm("LevelForm");
+        AudioManager.Instance.Play("switch");
         LevelManager.Instance.StartGame();
     }
 

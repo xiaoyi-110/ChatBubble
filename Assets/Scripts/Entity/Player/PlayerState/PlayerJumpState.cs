@@ -10,13 +10,14 @@ public class PlayerJumpState : PlayerState
     public override void OnEnter(FSM<Player> fsm)
     {
         base.OnEnter(fsm);
-        m_Player.IsInvincible = true;
+        AudioManager.Instance.Play("playerJump");
+        player.SetInvincible(true);        
     }
 
     public override void OnLeave(FSM<Player> fsm)
     {
         base.OnLeave(fsm);
-        m_Player.IsInvincible = false;
+        player.SetInvincible(false);
     }
 
 
@@ -24,13 +25,11 @@ public class PlayerJumpState : PlayerState
     {
         base.OnUpdate(fsm);
 
-        m_Player.transform.position = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y + m_Player.UpDownSpeed * Time.deltaTime, m_Player.transform.position.z);
-        if(m_Player.IsCeiling)
+        player.transform.position += new Vector3(0, player.FloatUpSpeed * Time.deltaTime, 0);
+        if (player.IsCeiling)
         {
             fsm.ChangeState<PlayerAirState>();
         }
-
-        
     }
     public static PlayerJumpState Create(string animName)
     {

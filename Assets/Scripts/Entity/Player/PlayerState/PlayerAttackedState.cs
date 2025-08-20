@@ -1,4 +1,3 @@
-
 using System;
 
 public class PlayerAttackedState : PlayerState
@@ -20,7 +19,7 @@ public class PlayerAttackedState : PlayerState
     {
         base.OnUpdate(fsm);
 
-        if(m_Player.InvincibleTimer<0)
+        if(!player.IsInvincible)
         {
             fsm.ChangeState(m_LastType);
         }

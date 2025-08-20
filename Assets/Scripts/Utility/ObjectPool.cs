@@ -22,6 +22,10 @@ public class ObjectPool : Singleton<ObjectPool>
         if(pool.ContainsKey(objName) && pool[objName].Count > 0)
         {   
             result = pool[objName].Dequeue();
+            if (result.TryGetComponent<Arrow>(out var arrowComponent))
+            {
+                arrowComponent.ResetState();
+            }
         }
         else
         {

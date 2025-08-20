@@ -2,18 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
+public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 {
-    private static T _instance;
-    public static T Instance
+    public static T Instance { get; private set; }
+
+    protected virtual void Awake()
     {
-        get
+        if (Instance != null)
         {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<T>();               
-            }
-            return _instance;
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this as T;
+        DontDestroyOnLoad(gameObject.transform.root.gameObject); 
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 }

@@ -4,127 +4,135 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     [Header("玩家属性")]
     public int MaxHP = 3;
-    public float UpDownSpeed = 10f;
+    public float FloatUpSpeed = 5f;
+    public float FloatDownSpeed = 4f;
     public float InvincibleTimeWindow = 1f;
     private Vector2 m_InitPosition;
 
     [Header("玩家当前状态")]
     public int CurrentHP;
-    
-    public float InvincibleTimer;
+    private float invincibleTimer;
+    public bool IsHurtInvincible => invincibleTimer > 0f;
+    private bool skillInvincible;
+    public bool IsSkillInvincible => skillInvincible;
+    public bool IsInvincible => IsHurtInvincible || IsSkillInvincible;
 
-    public Animator m_Animator;
-    public Rigidbody2D m_RD;
-    [SerializeField] private AudioSource playerDieSound;
-    [SerializeField] private AudioSource playerAttackedSound;
 
     [Header("碰撞检测")]
+    public Rigidbody2D RD;
     public LayerMask GroundLayer;
     public Transform GroundCheck;
     public float GroundCheckLen = 1f;
     public Transform CeilingCheck;
-    public float CeillingCheckLen = 1f;
+    public float CeilingCheckLen = 1f;
     public Transform AttackCheck;
     public float AttackRadius = 1f;
 
     public bool IsGrounded => Physics2D.Raycast(GroundCheck.position, Vector2.down, GroundCheckLen, GroundLayer);
-    public bool IsCeiling => Physics2D.Raycast(CeilingCheck.position, Vector2.up, CeillingCheckLen, GroundLayer);
-    public bool IsInvincible;
-    
-    #region FSM
+    public bool IsCeiling => Physics2D.Raycast(CeilingCheck.position, Vector2.up, CeilingCheckLen, GroundLayer);
 
+    #region FSM  
     private FSM<Player> m_FSM;
-    private List<FSMState<Player>> fSMStates;
+    private List<FSMState<Player>> m_FSMStates;
     #endregion
 
-    #region Control
-    public bool isTryJump => Input.GetKeyDown(KeyCode.Space);
-    public bool isTryAir => Input.GetKey(KeyCode.Space);
-    public bool isTryAttack => Input.GetKeyDown(KeyCode.Space);
+    #region Control  
+    public bool IsTryJump => Input.GetKeyDown(KeyCode.Space);
+    public bool IsTryAir => Input.GetKey(KeyCode.Space);
+    public bool IsTryAttack => Input.GetKeyDown(KeyCode.Space);
     #endregion
-   
 
-    private void Awake()
+    protected override void Awake()
     {
-        m_Animator = GetComponentInChildren<Animator>();
-        m_RD = GetComponentInChildren<Rigidbody2D>();   
+        base.Awake();
+        EntityRegistry.Register(EntityType.Player, this);
         m_InitPosition = transform.position;
         CreateFSM();
     }
 
     private void OnEnable()
     {
-        Init();
+        //Init();
     }
 
-    // 初始化
+    // 初始化  
     public void Init()
     {
         CurrentHP = MaxHP;
-        InvincibleTimer = -1f;
-        IsInvincible = false;
+        invincibleTimer = -1f;
         transform.position = m_InitPosition;
 
-        InitFsm();
+        InitFSM();
 
-        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "PlayerHPBar");
-        EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, EntityType.Player);
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
+        }
     }
 
     private void CreateFSM()
     {
-        fSMStates = new List<FSMState<Player>>()
-        {
-            PlayerIdleState.Create("Idle"),
-            PlayerJumpState.Create("Jump"),
-            PlayerAirState.Create("Air"),
-            PlayerFallState.Create("Fall"),
-            PlayerAttackedState.Create("Attacked"),
+        m_FSMStates = new List<FSMState<Player>>()
+       {
+           PlayerIdleState.Create("Idle"),
+           PlayerJumpState.Create("Jump"),
+           PlayerAirState.Create("Air"),
+           PlayerFallState.Create("Fall"),
+           PlayerAttackedState.Create("Attacked"),
+       };
 
-        };
-        
-        m_FSM = new FSM<Player>(this ,fSMStates);
-
+        m_FSM = new FSM<Player>(this, m_FSMStates);
         m_FSM.StartState<PlayerIdleState>();
     }
 
-    private void InitFsm()
+    private void InitFSM()
     {
         m_FSM.StartState<PlayerIdleState>();
     }
 
-    private void Update() {
-        if(!LevelManager.Instance.m_IsStartGame) return;
+
+    protected override void Update()
+    {
+        if (!LevelManager.Instance.IsGameStarted) return;
         m_FSM.OnUpdate();
-        InvincibleTimer -= Time.deltaTime;
+        if (invincibleTimer > 0f)
+        {
+            invincibleTimer -= Time.deltaTime;
+        }
     }
 
-    public void ChangeHP(int value=-1)
+    public void SetInvincible(bool value)
     {
-        if (InvincibleTimer>=0 || value==0)return;
-        if(value<0) InvincibleTimer = InvincibleTimeWindow;
-        
-        CurrentHP= Mathf.Clamp(CurrentHP + value, 0, MaxHP);
-        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, "PlayerHPBar");
+        skillInvincible = value;
+    }
+
+
+
+    public void ChangeHP(int value = -1)
+    {
+        if (invincibleTimer >= 0 || value == 0) return;
+        if (value < 0) invincibleTimer = InvincibleTimeWindow;
+
+        CurrentHP = Mathf.Clamp(CurrentHP + value, 0, MaxHP);
+        OnHPChangeEventArgs args = OnHPChangeEventArgs.Create(CurrentHP, EntityType.Player);
         EventManager.Instance.TriggerEvent(OnHPChangeEventArgs.EventId, this, args);
-        
+
         if (CurrentHP <= 0)
         {
-            playerDieSound.Play();
+            AudioManager.Instance.Play("playerDie");
             LevelManager.Instance.LevelOver();
         }
     }
 
-    
-
     public void Attack()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.transform.position, AttackRadius);
-        foreach(var collider in colliders)
+        foreach (var collider in colliders)
         {
             if (collider.CompareTag("Bullet"))
             {
@@ -133,12 +141,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    
-
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.white;
         Gizmos.DrawLine(GroundCheck.position, GroundCheck.position + Vector3.down * GroundCheckLen);
-        Gizmos.DrawLine(CeilingCheck.position, CeilingCheck.position + Vector3.up * CeillingCheckLen);
+        Gizmos.DrawLine(CeilingCheck.position, CeilingCheck.position + Vector3.up * CeilingCheckLen);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(AttackCheck.position, AttackRadius);
     }
@@ -148,8 +155,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet") && !IsInvincible && !other.GetComponent<Bullet>().IsAttackable)
         {
             ChangeHP(-1);
-            playerAttackedSound.Play();
+            AudioManager.Instance.Play("hitPlayer");
         }
     }
-       
 }

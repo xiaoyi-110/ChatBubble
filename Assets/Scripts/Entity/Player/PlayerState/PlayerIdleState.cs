@@ -21,11 +21,11 @@ public class PlayerIdleState : PlayerState
     public override void OnUpdate(FSM<Player> fsm)
     {
         base.OnUpdate(fsm);
-        if(m_HasChanged)return;
+        if(hasChanged)return;
 
-        m_Player.Attack();
+        player.Attack();
 
-        if(m_Player.isTryJump)
+        if(player.IsTryJump)
         {
             fsm.ChangeState<PlayerJumpState>();
         }

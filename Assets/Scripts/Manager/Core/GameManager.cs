@@ -15,6 +15,6 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        UIManager.Instance.ShowUIForm("MenuForm");
+       // UIManager.Instance.ShowUIForm("MenuForm");
     }
 }

@@ -1,8 +1,3 @@
-
-using System;
-using Unity.VisualScripting;
-using UnityEngine;
-
 public class PlayerAirState : PlayerState
 {
     public PlayerAirState(string animName) : base(animName)
@@ -12,10 +7,10 @@ public class PlayerAirState : PlayerState
     public override void OnUpdate(FSM<Player> fsm)
     {
         base.OnUpdate(fsm);
-        if(m_HasChanged)return;
-        m_Player.Attack();
+        if(hasChanged)return;
+        player.Attack();
 
-        if(!m_Player.isTryAir)
+        if(!player.IsTryAir)
         {
             fsm.ChangeState<PlayerFallState>();
         }

@@ -4,9 +4,6 @@ public class UIManager : MonoSingleton<UIManager>
 {
     public List<GameObject> UIFormList;
 
-    private void Awake() {
-        
-    }
 
     private void Start()
     {
@@ -38,8 +35,4 @@ public class UIManager : MonoSingleton<UIManager>
         //m_Transition.FadeOut();
     }
 
-
-    
-
-    
 }

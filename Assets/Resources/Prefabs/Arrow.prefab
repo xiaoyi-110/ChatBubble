@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3936758523007863651}
   - component: {fileID: 9180476207581526936}
   m_Layer: 5
-  m_Name: arrow
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,11 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9a9c906a868b74d82a94558dca47f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSprites:
+  ArrowSprites:
   - {fileID: 21300000, guid: 17d4d1015682a884ba074b49cb628389, type: 3}
   - {fileID: 21300000, guid: 6bc262548f520e34f962456217cc0c56, type: 3}
   - {fileID: 21300000, guid: 54624ee44af03cd41b52ac1ea544f649, type: 3}
   - {fileID: 21300000, guid: 474d3cb45fc157c4f906ef3583aa8f37, type: 3}
-  arrowDir: 0
-  finishColor: {r: 0, g: 1, b: 0.7553935, a: 1}
-  errorColor: {r: 1, g: 0.58176094, b: 0.77767986, a: 1}
+  ArrowDirection: 0
+  FinishColor: {r: 0.2295596, g: 1, b: 0.9449243, a: 1}
+  ErrorColor: {r: 1, g: 0.5943395, b: 0.98772335, a: 1}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
